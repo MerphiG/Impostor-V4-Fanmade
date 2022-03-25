@@ -1,0 +1,155 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				50
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Clowfoe idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				32
+			],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "Clowfoe down miss",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				70
+			],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "Clowfoe left miss",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				76
+			],
+			"anim": "singUPmiss",
+			"fps": 24,
+			"name": "Clowfoe up miss",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				57
+			],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "Clowfoe right miss",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				324,
+				32
+			],
+			"anim": "deathLoop",
+			"fps": 24,
+			"name": "Clowfoe death idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				324,
+				31
+			],
+			"anim": "deathConfirm",
+			"fps": 24,
+			"name": "Clowfoe death confirm",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				324,
+				41
+			],
+			"anim": "firstDeath",
+			"fps": 24,
+			"name": "Clowfoe death0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				57
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Clowfoe right0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				34
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Clowfoe down0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				70
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Clowfoe left0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				76
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Clowfoe up0",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/clowfoe",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "clowfoe",
+	"flip_x": true,
+	"healthbar_colors": [
+		193,
+		7,
+		100
+	],
+	"camera_position": [
+		210,
+		-10
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

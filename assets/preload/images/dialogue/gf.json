@@ -1,0 +1,76 @@
+{
+	"position": [
+		-200,
+		170
+	],
+	"dialogue_pos": "right",
+	"scale": 1.25,
+	"image": "girlfriend",
+	"animations": [
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "neutral",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "girlfriend neutral",
+			"idle_name": "girlfriend neutral0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				1
+			],
+			"anim": "happy",
+			"idle_offsets": [
+				0,
+				1
+			],
+			"loop_name": "girlfriend happy",
+			"idle_name": "girlfriend happy0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "angry",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "girlfreind angry",
+			"idle_name": "girlfreind angry0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "concern",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "girlfriend concern",
+			"idle_name": "girlfriend concern0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "raised",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "girlfriend :raised_eyeborw:",
+			"idle_name": "girlfriend :raised_eyeborw:0000"
+		}
+	]
+}

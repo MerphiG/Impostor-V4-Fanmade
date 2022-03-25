@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="speech_bubble.png">
+	<SubTexture name="AHH speech bubble0000" x="0" y="0" width="1066" height="262" frameX="0" frameY="-120" frameWidth="1066" frameHeight="262"/>
+	<SubTexture name="AHH Speech Bubble middle0000" x="0" y="0" width="1066" height="262" frameX="0" frameY="-120" frameWidth="1066" frameHeight="262"/>
+	<SubTexture name="Speech Bubble Middle Open0000" x="0" y="0" width="1066" height="262" frameX="0" frameY="-120" frameWidth="1066" frameHeight="262"/>
+	<SubTexture name="speech bubble loud open0000" x="0" y="0" width="1066" height="262" frameX="0" frameY="-120" frameWidth="1066" frameHeight="262"/>
+	<SubTexture name="speech bubble Middle loud open0000" x="0" y="0" width="1066" height="262" frameX="0" frameY="-120" frameWidth="1066" frameHeight="262"/>
+	<SubTexture name="speech bubble middle0000" x="0" y="0" width="1066" height="262" frameX="0" frameY="-120" frameWidth="1066" frameHeight="262"/>
+	<SubTexture name="speech bubble normal0000" x="0" y="0" width="1066" height="262" frameX="0" frameY="-120" frameWidth="1066" frameHeight="262"/>
+	<SubTexture name="Speech Bubble Normal Open0000" x="0" y="0" width="1066" height="262" frameX="0" frameY="-120" frameWidth="1066" frameHeight="262"/>
+</TextureAtlas>

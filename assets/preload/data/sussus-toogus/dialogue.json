@@ -1,0 +1,109 @@
+{
+	"dialogue": [
+		{
+			"expression": "happy",
+			"text": "thank GOD we got away from that crazy red dude",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "bf"
+		},
+		{
+			"expression": "stupid",
+			"text": "*shits pants*",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "bf"
+		},
+		{
+			"expression": "happy",
+			"text": "oh my gosh hello!!",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "green"
+		},
+		{
+			"expression": "happy",
+			"text": "im a crewmate! whats up dude!",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "green"
+		},
+		{
+			"expression": "concern",
+			"text": "nah i dont believe it dawg",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "gf"
+		},
+		{
+			"expression": "concern",
+			"text": "you look kinda weird ngl",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "gf"
+		},
+		{
+			"expression": "nervous",
+			"text": "wow uhhh!",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "green"
+		},
+		{
+			"expression": "happy",
+			"text": "kind of rude arent you motherfucker!",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "green"
+		},
+		{
+			"expression": "shocked",
+			"text": "woah dude",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "bf"
+		},
+		{
+			"expression": "mad",
+			"text": "im starting to think you actually ARE an impostor",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "bf"
+		},
+		{
+			"expression": "happy",
+			"text": "you need to shut the fuck up right this fucking\\ninstant. the idea that im the impostor is\\nsuch a fucking stupid thing to say. i really\\ndont understand how someone can so confidently\\nincorrect. you must be really fucking\\nstupid. fucking dumbass.",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "green"
+		},
+		{
+			"expression": "happy",
+			"text": "okay",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "bf"
+		},
+		{
+			"expression": "happy",
+			"text": "im not an impostor",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "green"
+		},
+		{
+			"expression": "happy",
+			"text": "yup",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "bf"
+		},
+		{
+			"expression": "happy",
+			"text": "glad we got that taken care of",
+			"boxState": "normal",
+			"speed": 0.05,
+			"portrait": "green"
+		}
+	]
+}

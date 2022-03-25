@@ -1,0 +1,30 @@
+{
+	"songs": [
+		[
+			"Lights Down",
+			"impostor3",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideFreeplay": false,
+	"weekBackground": "nothing",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "mira hq",
+	"weekName": "mira-hq",
+	"freeplayColor": [
+		255,
+		255,
+		255
+	],
+	"hideStoryMode": true,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

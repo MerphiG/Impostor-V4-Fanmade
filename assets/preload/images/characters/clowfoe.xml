@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="clowfoe.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Clowfoe death0000" x="4" y="4" width="804" height="486"/>
+	<SubTexture name="Clowfoe death0001" x="812" y="4" width="804" height="486"/>
+	<SubTexture name="Clowfoe death0002" x="1620" y="4" width="804" height="485" frameX="0" frameY="-1" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0003" x="2428" y="4" width="804" height="485" frameX="0" frameY="-1" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0004" x="3236" y="4" width="804" height="485" frameX="0" frameY="-1" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0005" x="4044" y="4" width="804" height="485" frameX="0" frameY="-1" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0006" x="4852" y="4" width="804" height="485" frameX="0" frameY="-1" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0007" x="5660" y="4" width="804" height="485" frameX="0" frameY="-1" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0008" x="6468" y="4" width="804" height="484" frameX="0" frameY="-2" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0009" x="4" y="494" width="804" height="484" frameX="0" frameY="-2" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0010" x="812" y="494" width="804" height="484" frameX="0" frameY="-2" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0011" x="1620" y="494" width="804" height="484" frameX="0" frameY="-2" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0012" x="2428" y="494" width="803" height="484" frameX="0" frameY="-2" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0013" x="3235" y="494" width="803" height="483" frameX="0" frameY="-3" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0014" x="4042" y="494" width="803" height="483" frameX="0" frameY="-3" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0015" x="4849" y="494" width="803" height="483" frameX="0" frameY="-3" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0016" x="5656" y="494" width="803" height="483" frameX="0" frameY="-3" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0017" x="6463" y="494" width="803" height="483" frameX="0" frameY="-3" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0018" x="4" y="982" width="803" height="482" frameX="0" frameY="-4" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0019" x="811" y="982" width="803" height="482" frameX="0" frameY="-4" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0020" x="1618" y="982" width="803" height="482" frameX="0" frameY="-4" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0021" x="2425" y="982" width="803" height="482" frameX="0" frameY="-4" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0022" x="3232" y="982" width="803" height="482" frameX="0" frameY="-4" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0023" x="4039" y="982" width="803" height="482" frameX="0" frameY="-4" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0024" x="4846" y="982" width="803" height="481" frameX="0" frameY="-5" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0025" x="5653" y="982" width="803" height="481" frameX="0" frameY="-5" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0026" x="6460" y="982" width="803" height="481" frameX="0" frameY="-5" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0027" x="4" y="1468" width="803" height="481" frameX="0" frameY="-5" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0028" x="811" y="1468" width="803" height="481" frameX="0" frameY="-5" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0029" x="1618" y="1468" width="803" height="480" frameX="0" frameY="-6" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0030" x="2425" y="1468" width="803" height="480" frameX="0" frameY="-6" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0031" x="3232" y="1468" width="803" height="480" frameX="0" frameY="-6" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0032" x="4039" y="1468" width="803" height="480" frameX="0" frameY="-6" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0033" x="4846" y="1468" width="803" height="480" frameX="0" frameY="-6" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0034" x="5653" y="1468" width="803" height="480" frameX="0" frameY="-6" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0035" x="6460" y="1468" width="803" height="479" frameX="0" frameY="-7" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0036" x="4" y="1953" width="803" height="479" frameX="0" frameY="-7" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0037" x="811" y="1953" width="803" height="479" frameX="0" frameY="-7" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0038" x="1618" y="1953" width="803" height="479" frameX="0" frameY="-7" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0039" x="2425" y="1953" width="803" height="479" frameX="0" frameY="-7" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0040" x="3232" y="1953" width="803" height="478" frameX="0" frameY="-8" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0041" x="4039" y="1953" width="803" height="478" frameX="0" frameY="-8" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0042" x="4846" y="1953" width="803" height="478" frameX="0" frameY="-8" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0043" x="5653" y="1953" width="803" height="478" frameX="0" frameY="-8" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0044" x="6460" y="1953" width="803" height="478" frameX="0" frameY="-8" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0045" x="4" y="2436" width="803" height="477" frameX="0" frameY="-9" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0046" x="811" y="2436" width="803" height="477" frameX="0" frameY="-9" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0047" x="1618" y="2436" width="803" height="477" frameX="0" frameY="-9" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0048" x="2425" y="2436" width="803" height="477" frameX="0" frameY="-9" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0049" x="3232" y="2436" width="803" height="477" frameX="0" frameY="-9" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0050" x="4039" y="2436" width="803" height="477" frameX="0" frameY="-9" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0051" x="4846" y="2436" width="803" height="476" frameX="0" frameY="-10" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0052" x="5653" y="2436" width="802" height="476" frameX="0" frameY="-10" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0053" x="5653" y="2436" width="802" height="476" frameX="0" frameY="-10" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0054" x="5653" y="2436" width="802" height="476" frameX="0" frameY="-10" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0055" x="5653" y="2436" width="802" height="476" frameX="0" frameY="-10" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0056" x="5653" y="2436" width="802" height="476" frameX="0" frameY="-10" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death0057" x="5653" y="2436" width="802" height="476" frameX="0" frameY="-10" frameWidth="804" frameHeight="486"/>
+	<SubTexture name="Clowfoe death confirm0000" x="6459" y="2436" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0001" x="4" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0002" x="810" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0003" x="1616" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0004" x="2422" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0005" x="3228" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0006" x="4034" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0007" x="4840" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0008" x="5646" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0009" x="6452" y="2917" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0010" x="4" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0011" x="810" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0012" x="1616" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0013" x="2422" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0014" x="3228" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0015" x="4034" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0016" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0017" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0018" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0019" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0020" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0021" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0022" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0023" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0024" x="4840" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0025" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0026" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0027" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0028" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0029" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0030" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0031" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0032" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death confirm0033" x="5646" y="3397" width="802" height="476"/>
+	<SubTexture name="Clowfoe death idle0000" x="6452" y="3397" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0001" x="4" y="3877" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0002" x="810" y="3877" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0003" x="1616" y="3877" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0004" x="2422" y="3877" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0005" x="3228" y="3877" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0006" x="4034" y="3877" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0007" x="4840" y="3877" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0008" x="5646" y="3877" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0009" x="6452" y="3877" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0010" x="4" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0011" x="810" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0012" x="1616" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0013" x="2422" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0014" x="3228" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0015" x="4034" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0016" x="4840" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0017" x="5646" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0018" x="6452" y="4358" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0019" x="4" y="4839" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0020" x="810" y="4839" width="802" height="477"/>
+	<SubTexture name="Clowfoe death idle0021" x="1616" y="4839" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0022" x="2422" y="4839" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0023" x="3228" y="4839" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0024" x="4034" y="4839" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0025" x="4840" y="4839" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0026" x="5646" y="4839" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0027" x="6452" y="4839" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0028" x="4" y="5320" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0029" x="810" y="5320" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0030" x="1616" y="5320" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0031" x="2422" y="5320" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0032" x="3228" y="5320" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe death idle0033" x="4034" y="5320" width="802" height="476" frameX="0" frameY="-1" frameWidth="802" frameHeight="477"/>
+	<SubTexture name="Clowfoe down0000" x="4840" y="5320" width="488" height="469" frameX="0" frameY="-6" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0001" x="5332" y="5320" width="487" height="471" frameX="0" frameY="-4" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0002" x="5823" y="5320" width="485" height="473" frameX="0" frameY="-2" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0003" x="6312" y="5320" width="485" height="474" frameX="0" frameY="-1" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0004" x="6801" y="5320" width="485" height="475" frameX="0" frameY="0" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0005" x="6801" y="5320" width="485" height="475" frameX="0" frameY="0" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0006" x="6801" y="5320" width="485" height="475" frameX="0" frameY="0" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0007" x="6801" y="5320" width="485" height="475" frameX="0" frameY="0" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0008" x="6801" y="5320" width="485" height="475" frameX="0" frameY="0" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down0009" x="6801" y="5320" width="485" height="475" frameX="0" frameY="0" frameWidth="488" frameHeight="475"/>
+	<SubTexture name="Clowfoe down miss0000" x="4" y="5800" width="488" height="469" frameX="0" frameY="-4" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0001" x="496" y="5800" width="487" height="471" frameX="0" frameY="-2" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0002" x="987" y="5800" width="485" height="473" frameX="0" frameY="0" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0003" x="987" y="5800" width="485" height="473" frameX="0" frameY="0" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0004" x="987" y="5800" width="485" height="473" frameX="0" frameY="0" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0005" x="987" y="5800" width="485" height="473" frameX="0" frameY="0" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0006" x="987" y="5800" width="485" height="473" frameX="0" frameY="0" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0007" x="987" y="5800" width="485" height="473" frameX="0" frameY="0" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0008" x="987" y="5800" width="485" height="473" frameX="0" frameY="0" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe down miss0009" x="987" y="5800" width="485" height="473" frameX="0" frameY="0" frameWidth="488" frameHeight="473"/>
+	<SubTexture name="Clowfoe idle0000" x="1476" y="5800" width="484" height="482" frameX="0" frameY="-9" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0001" x="1964" y="5800" width="483" height="483" frameX="0" frameY="-8" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0002" x="2451" y="5800" width="482" height="484" frameX="0" frameY="-7" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0003" x="2937" y="5800" width="480" height="486" frameX="0" frameY="-5" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0004" x="3421" y="5800" width="480" height="490" frameX="0" frameY="-1" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0005" x="3905" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0006" x="4389" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0007" x="4873" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0008" x="4873" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0009" x="4873" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0010" x="4873" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0011" x="4873" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0012" x="4873" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0013" x="4873" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe idle0014" x="4873" y="5800" width="480" height="491" frameX="0" frameY="0" frameWidth="484" frameHeight="491"/>
+	<SubTexture name="Clowfoe left0000" x="5357" y="5800" width="466" height="510" frameX="0" frameY="-1" frameWidth="474" frameHeight="511"/>
+	<SubTexture name="Clowfoe left0001" x="5827" y="5800" width="469" height="510" frameX="0" frameY="-1" frameWidth="474" frameHeight="511"/>
+	<SubTexture name="Clowfoe left0002" x="6300" y="5800" width="471" height="511" frameX="0" frameY="0" frameWidth="474" frameHeight="511"/>
+	<SubTexture name="Clowfoe left0003" x="6775" y="5800" width="473" height="511" frameX="0" frameY="0" frameWidth="474" frameHeight="511"/>
+	<SubTexture name="Clowfoe left0004" x="4" y="6315" width="474" height="511"/>
+	<SubTexture name="Clowfoe left0005" x="4" y="6315" width="474" height="511"/>
+	<SubTexture name="Clowfoe left0006" x="4" y="6315" width="474" height="511"/>
+	<SubTexture name="Clowfoe left0007" x="4" y="6315" width="474" height="511"/>
+	<SubTexture name="Clowfoe left0008" x="4" y="6315" width="474" height="511"/>
+	<SubTexture name="Clowfoe left0009" x="4" y="6315" width="474" height="511"/>
+	<SubTexture name="Clowfoe left miss0000" x="482" y="6315" width="466" height="510" frameX="0" frameY="-1" frameWidth="471" frameHeight="511"/>
+	<SubTexture name="Clowfoe left miss0001" x="952" y="6315" width="469" height="510" frameX="0" frameY="-1" frameWidth="471" frameHeight="511"/>
+	<SubTexture name="Clowfoe left miss0002" x="1425" y="6315" width="471" height="511"/>
+	<SubTexture name="Clowfoe left miss0003" x="1425" y="6315" width="471" height="511"/>
+	<SubTexture name="Clowfoe left miss0004" x="1425" y="6315" width="471" height="511"/>
+	<SubTexture name="Clowfoe left miss0005" x="1425" y="6315" width="471" height="511"/>
+	<SubTexture name="Clowfoe left miss0006" x="1425" y="6315" width="471" height="511"/>
+	<SubTexture name="Clowfoe left miss0007" x="1425" y="6315" width="471" height="511"/>
+	<SubTexture name="Clowfoe left miss0008" x="1425" y="6315" width="471" height="511"/>
+	<SubTexture name="Clowfoe left miss0009" x="1425" y="6315" width="471" height="511"/>
+	<SubTexture name="Clowfoe right0000" x="1900" y="6315" width="574" height="498"/>
+	<SubTexture name="Clowfoe right0001" x="2478" y="6315" width="574" height="496" frameX="0" frameY="-2" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right0002" x="3056" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right0003" x="3634" y="6315" width="572" height="493" frameX="0" frameY="-5" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right0004" x="4210" y="6315" width="569" height="492" frameX="0" frameY="-6" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right0005" x="4210" y="6315" width="569" height="492" frameX="0" frameY="-6" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right0006" x="4210" y="6315" width="569" height="492" frameX="0" frameY="-6" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right0007" x="4210" y="6315" width="569" height="492" frameX="0" frameY="-6" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right0008" x="4210" y="6315" width="569" height="492" frameX="0" frameY="-6" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right0009" x="4210" y="6315" width="569" height="492" frameX="0" frameY="-6" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0000" x="4783" y="6315" width="574" height="498"/>
+	<SubTexture name="Clowfoe right miss0001" x="5361" y="6315" width="574" height="496" frameX="0" frameY="-2" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0002" x="5939" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0003" x="5939" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0004" x="5939" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0005" x="5939" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0006" x="5939" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0007" x="5939" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0008" x="5939" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe right miss0009" x="5939" y="6315" width="574" height="495" frameX="0" frameY="-3" frameWidth="574" frameHeight="498"/>
+	<SubTexture name="Clowfoe up0000" x="6517" y="6315" width="573" height="517"/>
+	<SubTexture name="Clowfoe up0001" x="4" y="6836" width="572" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up0002" x="580" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up0003" x="1155" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up0004" x="1730" y="6836" width="570" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up0005" x="1730" y="6836" width="570" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up0006" x="1730" y="6836" width="570" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up0007" x="1730" y="6836" width="570" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up0008" x="1730" y="6836" width="570" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up0009" x="1730" y="6836" width="570" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0000" x="2304" y="6836" width="573" height="517"/>
+	<SubTexture name="Clowfoe up miss0001" x="2881" y="6836" width="572" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0002" x="3457" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0003" x="3457" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0004" x="3457" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0005" x="3457" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0006" x="3457" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0007" x="3457" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0008" x="3457" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+	<SubTexture name="Clowfoe up miss0009" x="3457" y="6836" width="571" height="516" frameX="0" frameY="-1" frameWidth="573" frameHeight="517"/>
+</TextureAtlas>

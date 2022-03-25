@@ -1,0 +1,30 @@
+{
+	"songs": [
+		[
+			"Sussus Moogus",
+			"impostor",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideFreeplay": false,
+	"weekBackground": "nothing",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "polus",
+	"weekName": "polus",
+	"freeplayColor": [
+		255,
+		255,
+		255
+	],
+	"hideStoryMode": true,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

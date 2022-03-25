@@ -1,0 +1,144 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				170,
+				-270
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "impostor idle"
+		},
+		{
+			"offsets": [
+				123,
+				-285
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "impostor down"
+		},
+		{
+			"offsets": [
+				92,
+				-219
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "impostor up"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				27,
+				-275
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "impostor left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				171,
+				-260
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "impostor right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-38,
+				-222
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "death",
+			"indices": [],
+			"name": "impostor death"
+		},
+		{
+			"offsets": [
+				-38,
+				-477
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt",
+			"indices": [],
+			"name": "impostor altidle"
+		},
+		{
+			"offsets": [
+				123,
+				-285
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWNmiss",
+			"loop": false,
+			"name": "impostor down"
+		},
+		{
+			"offsets": [
+				92,
+				-219
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUPmiss",
+			"loop": false,
+			"name": "impostor up"
+		},
+		{
+			"offsets": [
+				27,
+				-275
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHTmiss",
+			"loop": false,
+			"name": "impostor left"
+		},
+		{
+			"offsets": [
+				171,
+				-260
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFTmiss",
+			"loop": false,
+			"name": "impostor right"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/red-b",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "green-red",
+	"flip_x": true,
+	"healthbar_colors": [
+		246,
+		30,
+		54
+	],
+	"camera_position": [
+		-120,
+		330
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

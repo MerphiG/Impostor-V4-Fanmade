@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				5,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "HamsterIdle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				5,
+				0
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "HamsterUp",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				5,
+				0
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "HamsterLeft",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				5,
+				0
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "HamsterRight",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				5,
+				0
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "HamsterDown",
+			"indices": []
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/hamster",
+	"position": [
+		210,
+		340
+	],
+	"healthicon": "hamster-pixel",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		207,
+		134
+	],
+	"camera_position": [
+		-370,
+		-100
+	],
+	"sing_duration": 6.1,
+	"scale": 6
+}

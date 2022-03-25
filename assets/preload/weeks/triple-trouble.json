@@ -1,0 +1,48 @@
+{
+	"songs": [
+		[
+			"Boiling Point",
+			"maroon",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Insane",
+			"gray",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Blackout",
+			"gray",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideFreeplay": true,
+	"weekBackground": "stage",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "triple-trouble",
+	"weekName": "triple-trouble",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

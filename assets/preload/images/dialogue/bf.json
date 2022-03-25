@@ -1,0 +1,89 @@
+{
+	"position": [
+		-200,
+		170
+	],
+	"dialogue_pos": "right",
+	"scale": 1.25,
+	"image": "boyfriend",
+	"animations": [
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "neutral",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "boyfriend neutral",
+			"idle_name": "boyfriend neutral0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				1
+			],
+			"anim": "happy",
+			"idle_offsets": [
+				0,
+				1
+			],
+			"loop_name": "boyfriend happy",
+			"idle_name": "boyfriend happy0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "mad",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "boyfriend mad",
+			"idle_name": "boyfriend mad0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "shocked",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "boyfriend shocked",
+			"idle_name": "boyfriend shocked0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				-5
+			],
+			"anim": "stupid",
+			"idle_offsets": [
+				0,
+				-5
+			],
+			"loop_name": "boyfriend stupid",
+			"idle_name": "boyfriend stupid0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "angry",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "boyfriend very angry probably",
+			"idle_name": "boyfriend very angry probably0000"
+		}
+	]
+}

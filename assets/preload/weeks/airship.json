@@ -1,0 +1,84 @@
+{
+	"songs": [
+		[
+			"Mando",
+			"yellow",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"D'Low",
+			"yellow",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Oversight",
+			"white",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Danger",
+			"black",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Double Kill",
+			"white-black",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Titular",
+			"henry",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Mission",
+			"henry",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideFreeplay": true,
+	"weekBackground": "stage",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "airship",
+	"weekName": "airship",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

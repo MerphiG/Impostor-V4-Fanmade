@@ -1,0 +1,76 @@
+{
+	"position": [
+		280,
+		200
+	],
+	"dialogue_pos": "left",
+	"scale": 1.25,
+	"image": "redImpostor",
+	"animations": [
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "neutral",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "impostor neutral",
+			"idle_name": "impostor neutral0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "happy",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "impostor happy",
+			"idle_name": "impostor happy0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "mad",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "impostor mad",
+			"idle_name": "impostor mad0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "shocked",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "impostor shocked",
+			"idle_name": "impostor shocked0000"
+		},
+		{
+			"loop_offsets": [
+				0,
+				0
+			],
+			"anim": "sex",
+			"idle_offsets": [
+				0,
+				0
+			],
+			"loop_name": "the secret impostor",
+			"idle_name": "the secret impostor0000"
+		}
+	]
+}

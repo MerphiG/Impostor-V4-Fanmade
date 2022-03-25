@@ -1,0 +1,30 @@
+{
+	"songs": [
+		[
+			"Sussy Bussy",
+			"tomongus-pixel",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideFreeplay": false,
+	"weekBackground": "nothing",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "skeld",
+	"weekName": "skeld",
+	"freeplayColor": [
+		255,
+		255,
+		255
+	],
+	"hideStoryMode": true,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}
