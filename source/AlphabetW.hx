@@ -7,6 +7,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxTimer;
 import flixel.system.FlxSound;
+import flash.media.Sound;
 
 using StringTools;
 
@@ -39,7 +40,7 @@ class AlphabetW extends FlxSpriteGroup
 
 	var splitWords:Array<String> = [];
 
-	var isBold:Bool = false;
+	public var isBold:Bool = false;
 	public var lettersArray:Array<AlphaCharacterW> = [];
 
 	public var finishedText:Bool = false;
@@ -76,6 +77,7 @@ class AlphabetW extends FlxSpriteGroup
 	{
 		for (i in 0...lettersArray.length) {
 			var letter = lettersArray[0];
+			letter.destroy();
 			remove(letter);
 			lettersArray.remove(letter);
 		}
@@ -121,15 +123,15 @@ class AlphabetW extends FlxSpriteGroup
 			// {
 			// }
 
-			var spaceChar:Bool = (character == " " || character == "_");
+			var spaceChar:Bool = (character == " " || (isBold && character == "_"));
 			if (spaceChar)
 			{
 				consecutiveSpaces++;
 			}
 
-			var isNumber:Bool = AlphaCharacterW.numbers.indexOf(character) != -1;
-			var isSymbol:Bool = AlphaCharacterW.symbols.indexOf(character) != -1;
-			var isAlphabetW:Bool = AlphaCharacterW.alphabetW.indexOf(character.toLowerCase()) != -1;
+			var isNumber:Bool = AlphaCharacterW.numbersw.indexOf(character) != -1;
+			var isSymbol:Bool = AlphaCharacterW.symbolsw.indexOf(character) != -1;
+			var isAlphabetW:Bool = AlphaCharacterW.alphabetw.indexOf(character.toLowerCase()) != -1;
 			if ((isAlphabetW || isSymbol || isNumber) && (!isBold || !spaceChar))
 			{
 				if (lastSprite != null)
@@ -196,7 +198,14 @@ class AlphabetW extends FlxSpriteGroup
 	var xPos:Float = 0;
 	public var curRow:Int = 0;
 	var dialogueSound:FlxSound = null;
+	private static var soundDialog:Sound = null;
 	var consecutiveSpaces:Int = 0;
+	public static function setDialogueSound(name:String = '')
+	{
+		if (name == null || name.trim() == '') name = 'dialogue';
+		soundDialog = Paths.sound(name);
+		if(soundDialog == null) soundDialog = Paths.sound('dialogue');
+	}
 
 	var typeTimer:FlxTimer = null;
 	public function startTypedText(speed:Float):Void
@@ -206,12 +215,17 @@ class AlphabetW extends FlxSpriteGroup
 
 		// trace(arrayShit);
 
+		if(soundDialog == null)
+		{
+			AlphabetW.setDialogueSound();
+		}
+
 		if(speed <= 0) {
 			while(!finishedText) { 
 				timerCheck();
 			}
 			if(dialogueSound != null) dialogueSound.stop();
-			dialogueSound = FlxG.sound.play(Paths.sound('dialogue'));
+			dialogueSound = FlxG.sound.play(soundDialog);
 		} else {
 			typeTimer = new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				typeTimer = new FlxTimer().start(speed, function(tmr:FlxTimer) {
@@ -242,15 +256,15 @@ class AlphabetW extends FlxSpriteGroup
 		}
 
 		if(loopNum <= splitWords.length && splitWords[loopNum] != null) {
-			var spaceChar:Bool = (splitWords[loopNum] == " " || splitWords[loopNum] == "_");
+			var spaceChar:Bool = (splitWords[loopNum] == " " || (isBold && splitWords[loopNum] == "_"));
 			if (spaceChar)
 			{
 				consecutiveSpaces++;
 			}
 
-			var isNumber:Bool = AlphaCharacterW.numbers.indexOf(splitWords[loopNum]) != -1;
-			var isSymbol:Bool = AlphaCharacterW.symbols.indexOf(splitWords[loopNum]) != -1;
-			var isAlphabetW:Bool = AlphaCharacterW.alphabetW.indexOf(splitWords[loopNum].toLowerCase()) != -1;
+			var isNumber:Bool = AlphaCharacterW.numbersw.indexOf(splitWords[loopNum]) != -1;
+			var isSymbol:Bool = AlphaCharacterW.symbolsw.indexOf(splitWords[loopNum]) != -1;
+			var isAlphabetW:Bool = AlphaCharacterW.alphabetw.indexOf(splitWords[loopNum].toLowerCase()) != -1;
 
 			if ((isAlphabetW || isSymbol || isNumber) && (!isBold || !spaceChar))
 			{
@@ -309,7 +323,7 @@ class AlphabetW extends FlxSpriteGroup
 
 				if(tmr != null) {
 					if(dialogueSound != null) dialogueSound.stop();
-					dialogueSound = FlxG.sound.play(Paths.sound('dialogue'));
+					dialogueSound = FlxG.sound.play(soundDialog);
 				}
 
 				add(letter);
@@ -358,11 +372,11 @@ class AlphabetW extends FlxSpriteGroup
 
 class AlphaCharacterW extends FlxSprite
 {
-	public static var alphabetW:String = "abcdefghijklmnopqrstuvwxyz";
+	public static var alphabetw:String = "abcdefghijklmnopqrstuvwxyz";
 
-	public static var numbers:String = "1234567890";
+	public static var numbersw:String = "1234567890";
 
-	public static var symbols:String = "|~#$%()*+-:;<=>@[]^_.,'!?";
+	public static var symbolsw:String = "|~#$%()*+-:;<=>@[]^_.,'!?";
 
 	public var row:Int = 0;
 
@@ -371,7 +385,7 @@ class AlphaCharacterW extends FlxSprite
 	public function new(x:Float, y:Float, textSize:Float)
 	{
 		super(x, y);
-		var tex = Paths.getSparrowAtlas('alphabetW');
+		var tex = Paths.getSparrowAtlas('alphabetw');
 		frames = tex;
 
 		setGraphicSize(Std.int(width * textSize));

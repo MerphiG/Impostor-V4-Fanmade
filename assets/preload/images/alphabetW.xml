@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="alphabetW.png">
+<TextureAtlas imagePath="alphabetw.png">
 	<SubTexture name="%0000" x="0" y="0" width="46" height="52" pivotX="0.05" pivotY="0"/>
 	<SubTexture name="%0001" x="0" y="0" width="46" height="52"/>
 	<SubTexture name="%0002" x="50" y="0" width="45" height="52" frameX="0" frameY="0" frameWidth="46" frameHeight="52"/>

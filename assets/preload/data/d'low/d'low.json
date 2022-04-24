@@ -1,6 +1,6 @@
 {
 	"song": {
-		"player1": "bfcopy",
+		"player1": "bf",
 		"sectionLengths": [],
 		"notes": [
 			{
@@ -7340,7 +7340,7 @@
 			}
 		],
 		"player2": "yellow",
-		"player3": "nothing",
+		"player3": "gf",
 		"song": "D'Low",
 		"validScore": true,
 		"needsVoices": false,

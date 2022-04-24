@@ -1,9 +1,9 @@
-local xx = 715;
-local yy = 595;
-local ofs = 50;
-local ofs2 = 50;
-local xx2 = 950;
-local yy2 = 620;
+local xx = 840;
+local yy = 625;
+local ofs = 30;
+local ofs2 = 30;
+local xx2 = 1250;
+local yy2 = 625;
 local followchars = true;
 
 function onUpdate()
@@ -49,7 +49,7 @@ function onUpdate()
 			if getProperty('boyfriend.animation.curAnim.name') == 'singDOWN' then
                 triggerEvent('Camera Follow Pos',xx2,yy2+ofs2)
             end
-
+			
 			if getProperty('boyfriend.animation.curAnim.name') == 'singLEFTmiss' then
                 triggerEvent('Camera Follow Pos',xx2-ofs2,yy2)
             end

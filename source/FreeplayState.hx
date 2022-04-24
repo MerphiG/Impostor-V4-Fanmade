@@ -3,6 +3,7 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import editors.ChartingState;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -10,18 +11,17 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
+import flixel.tweens.FlxEase;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import lime.utils.Assets;
 import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.util.FlxTimer;
+import lime.utils.Assets;
+import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
 import WeekData;
-import lime.app.Application;
-import openfl.utils.Future;
-import openfl.media.Sound;
-import flixel.system.FlxSound;
+#if MODS_ALLOWED
+import sys.FileSystem;
+#end
 
 using StringTools;
 
@@ -31,7 +31,8 @@ class FreeplayState extends MusicBeatState
 
 	var selector:FlxText;
 	private static var curSelected:Int = 0;
-	private static var curDifficulty:Int = 1;
+	var curDifficulty:Int = -1;
+	private static var lastDifficultyName:String = '';
 
 	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
@@ -49,7 +50,7 @@ class FreeplayState extends MusicBeatState
 	var bg:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
-	
+
 	var red1:FlxSprite;
 	var red2:FlxSprite;
 	var green1:FlxSprite;
@@ -71,39 +72,50 @@ class FreeplayState extends MusicBeatState
 	var double2:FlxSprite;
 	var cz:FlxSprite;
 	var jorsawsee:FlxSprite;
-	var betrayal:FlxSprite;
 	var bfi:FlxSprite;
+	var tt:FlxSprite;
+	var sus:FlxSprite;
+	var infi:FlxSprite;
 
 	override function create()
 	{
-		#if MODS_ALLOWED
-		Paths.destroyLoadedImages();
-		#end
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+		
+		persistentUpdate = true;
+		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
 		for (i in 0...WeekData.weeksList.length) {
+			if(weekIsLocked(WeekData.weeksList[i])) continue;
+
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			var leSongs:Array<String> = [];
 			var leChars:Array<String> = [];
-			for (j in 0...leWeek.songs.length) {
+
+			for (j in 0...leWeek.songs.length)
+			{
 				leSongs.push(leWeek.songs[j][0]);
 				leChars.push(leWeek.songs[j][1]);
 			}
 
 			WeekData.setDirectoryFromWeek(leWeek);
-			for (song in leWeek.songs) {
+			for (song in leWeek.songs)
+			{
 				var colors:Array<Int> = song[2];
-				if(colors == null || colors.length < 3) {
+				if(colors == null || colors.length < 3)
+				{
 					colors = [146, 113, 253];
 				}
 				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]));
 			}
 		}
-		WeekData.setDirectoryFromWeek();
+		WeekData.loadTheFirstEnabledMod();
 
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 		for (i in 0...initSonglist.length)
@@ -114,10 +126,6 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		// LOAD MUSIC
-
-		// LOAD CHARACTERS
-
 		var bg:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('spacep'));
 		bg.scrollFactor.x = 0;
 		bg.scrollFactor.y = 0.10;
@@ -127,120 +135,130 @@ class FreeplayState extends MusicBeatState
 		add(bg);
 
 
-		red1 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/red-1'));
+		red1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/red-1'));
 		red1.setGraphicSize(Std.int(red1.width * 1.1));
 		red1.antialiasing = ClientPrefs.globalAntialiasing;
 		add(red1);
 		
-		red2 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/red-2'));
+		red2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/red-2'));
 		red2.setGraphicSize(Std.int(red2.width * 1.1));
 		red2.antialiasing = ClientPrefs.globalAntialiasing;
 		add(red2);
 		
-		green1 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/green-1'));
+		green1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/green-1'));
 		green1.setGraphicSize(Std.int(green1.width * 1.1));
 		green1.antialiasing = ClientPrefs.globalAntialiasing;
 		add(green1);
 
-		green2 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/green-2'));
+		green2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/green-2'));
 		green2.setGraphicSize(Std.int(green2.width * 1.1));
 		green2.antialiasing = ClientPrefs.globalAntialiasing;
 		add(green2);
 		
-		green3 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/green-3'));
+		green3 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/green-3'));
 		green3.setGraphicSize(Std.int(green3.width * 1.1));
 		green3.antialiasing = ClientPrefs.globalAntialiasing;
 		add(green3);
 		
-		green4 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/green-4'));
+		green4 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/green-4'));
 		green4.setGraphicSize(Std.int(green4.width * 1.1));
 		green4.antialiasing = ClientPrefs.globalAntialiasing;
 		add(green4);
 		
-		sus1 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/sus-1'));
+		sus1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/sus-1'));
 		sus1.setGraphicSize(Std.int(sus1.width * 1.1));
 		sus1.antialiasing = false;
 		add(sus1);
 		
-		sus2 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/sus-2'));
+		sus2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/sus-2'));
 		sus2.setGraphicSize(Std.int(sus2.width * 1.1));
 		sus2.antialiasing = false;
 		add(sus2);
 		
-		black = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/black'));
+		black = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/black'));
 		black.setGraphicSize(Std.int(black.width * 1.1));
 		black.antialiasing = ClientPrefs.globalAntialiasing;
 		add(black);
 		
-		fella1 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/fella-1'));
+		fella1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/fella-1'));
 		fella1.setGraphicSize(Std.int(fella1.width * 1.1));
 		fella1.antialiasing = false;
 		add(fella1);
 		
-		fella2 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/fella-2'));
+		fella2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/fella-2'));
 		fella2.setGraphicSize(Std.int(fella2.width * 1.1));
 		fella2.antialiasing = false;
 		add(fella2);
 		
-		yellow = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/yellow'));
+		yellow = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/yellow'));
 		yellow.setGraphicSize(Std.int(yellow.width * 1.1));
 		yellow.antialiasing = ClientPrefs.globalAntialiasing;
 		add(yellow);
 		
-		white = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/white'));
+		white = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/white'));
 		white.setGraphicSize(Std.int(white.width * 1.1));
 		white.antialiasing = ClientPrefs.globalAntialiasing;
 		add(white);
 		
-		wb = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/white-black'));
+		wb = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/white-black'));
 		wb.setGraphicSize(Std.int(wb.width * 1.1));
 		wb.antialiasing = ClientPrefs.globalAntialiasing;
 		add(wb);
 		
-		henry = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/henry'));
+		henry = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/henry'));
 		henry.setGraphicSize(Std.int(henry.width * 1.1));
 		henry.antialiasing = ClientPrefs.globalAntialiasing;
 		add(henry);
 		
-		maroon = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/maroon'));
+		maroon = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/maroon'));
 		maroon.setGraphicSize(Std.int(maroon.width * 1.1));
 		maroon.antialiasing = ClientPrefs.globalAntialiasing;
 		add(maroon);
 		
-		gray = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/gray'));
+		gray = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/gray'));
 		gray.setGraphicSize(Std.int(gray.width * 1.1));
 		gray.antialiasing = ClientPrefs.globalAntialiasing;
 		add(gray);
 		
-		double1 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/double-1'));
+		double1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/double-1'));
 		double1.setGraphicSize(Std.int(double1.width * 1.1));
 		double1.antialiasing = ClientPrefs.globalAntialiasing;
 		add(double1);
 		
-		double2 = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/double-2'));
+		double2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/double-2'));
 		double2.setGraphicSize(Std.int(double2.width * 1.1));
 		double2.antialiasing = ClientPrefs.globalAntialiasing;
 		add(double2);
 		
-		cz = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/clowfoe-ziffy'));
+		cz = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/clowfoe-ziffy'));
 		cz.setGraphicSize(Std.int(cz.width * 1.1));
 		cz.antialiasing = ClientPrefs.globalAntialiasing;
 		add(cz);
 
-		jorsawsee = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/jorsawsee'));
+		jorsawsee = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/jorsawsee'));
 		jorsawsee.setGraphicSize(Std.int(jorsawsee.width * 1.1));
 		jorsawsee.antialiasing = ClientPrefs.globalAntialiasing;
 		add(jorsawsee);
 		
-		betrayal = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/betrayal'));
-		betrayal.setGraphicSize(Std.int(betrayal.width * 1.1));
-		betrayal.antialiasing = ClientPrefs.globalAntialiasing;
-		add(betrayal);
-		
-		bfi = new FlxSprite(-100, 0).loadGraphic(Paths.image('freeplay/bf-impostor'));
+		bfi = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/bf-impostor'));
 		bfi.setGraphicSize(Std.int(bfi.width * 1.1));
 		bfi.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bfi);
+
+		tt = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/tt'));
+		tt.setGraphicSize(Std.int(tt.width * 1.1));
+		tt.antialiasing = ClientPrefs.globalAntialiasing;
+		add(tt);
+		
+		sus = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/sus'));
+		sus.setGraphicSize(Std.int(sus.width * 1.1));
+		sus.antialiasing = ClientPrefs.globalAntialiasing;
+		add(sus);
+		
+		infi = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/infi'));
+		infi.setGraphicSize(Std.int(infi.width * 1.1));
+		infi.antialiasing = ClientPrefs.globalAntialiasing;
+		add(infi);
 
 		var gradient:FlxSprite = new FlxSprite(0, 100).loadGraphic(Paths.image('menuGr'));
 		gradient.scrollFactor.x = 0;
@@ -299,49 +317,48 @@ class FreeplayState extends MusicBeatState
 		if(curSelected >= songs.length) curSelected = 0;
 		bg.color = songs[curSelected].color;
 		intendedColor = bg.color;
+
+		if(lastDifficultyName == '')
+		{
+			lastDifficultyName = CoolUtil.defaultDifficulty;
+		}
+		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
+		
 		changeSelection();
 		changeDiff();
-
-		// JUST DOIN THIS SHIT FOR TESTING!!!
-		/* 
-			var md:String = Markdown.markdownToHtml(Assets.getText('CHANGELOG.md'));
-
-			var texFel:TextField = new TextField();
-			texFel.width = FlxG.width;
-			texFel.height = FlxG.height;
-			// texFel.
-			texFel.htmlText = md;
-
-			FlxG.stage.addChild(texFel);
-
-			// scoreText.textField.htmlText = md;
-
-			trace(md);
-		 */
 
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		textBG.alpha = 0.6;
 		add(textBG);
+
 		#if PRELOAD_ALL
-		var leText:String = "Press SPACE to listen to this Song / Press RESET to Reset your Score and Accuracy.";
+		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		var size:Int = 16;
 		#else
-		var leText:String = "Press RESET to Reset your Score and Accuracy.";
+		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+		var size:Int = 18;
 		#end
-		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, 18);
-		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
+		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
 		super.create();
 	}
 
 	override function closeSubState() {
-		changeSelection();
+		changeSelection(0, false);
+		persistentUpdate = true;
 		super.closeSubState();
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
 	{
 		songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
+	}
+
+	function weekIsLocked(name:String):Bool {
+		var leWeek:WeekData = WeekData.weeksLoaded.get(name);
+		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
 	}
 
 	/*public function addWeek(songs:Array<String>, weekNum:Int, weekColor:Int, ?songCharacters:Array<String>)
@@ -362,6 +379,7 @@ class FreeplayState extends MusicBeatState
 
 	var instPlaying:Int = -1;
 	private static var vocals:FlxSound = null;
+	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music.volume < 0.7)
@@ -377,68 +395,107 @@ class FreeplayState extends MusicBeatState
 		if (Math.abs(lerpRating - intendedRating) <= 0.01)
 			lerpRating = intendedRating;
 
-		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + Math.floor(lerpRating * 100) + '%)';
+		var ratingSplit:Array<String> = Std.string(Highscore.floorDecimal(lerpRating * 100, 2)).split('.');
+		if(ratingSplit.length < 2) { //No decimals, add an empty space
+			ratingSplit.push('');
+		}
+		
+		while(ratingSplit[1].length < 2) { //Less than 2 decimals in it, add decimals then
+			ratingSplit[1] += '0';
+		}
+
+		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 		var space = FlxG.keys.justPressed.SPACE;
+		var ctrl = FlxG.keys.justPressed.CONTROL;
 
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
-		if (upP)
+		if(songs.length > 1)
 		{
-			changeSelection(-shiftMult);
-		}
-		if (downP)
-		{
-			changeSelection(shiftMult);
+			if (upP)
+			{
+				changeSelection(-shiftMult);
+				holdTime = 0;
+			}
+			if (downP)
+			{
+				changeSelection(shiftMult);
+				holdTime = 0;
+			}
+
+			if(controls.UI_DOWN || controls.UI_UP)
+			{
+				var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
+				holdTime += elapsed;
+				var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
+
+				if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
+				{
+					changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
+					changeDiff();
+				}
+			}
 		}
 
 		if (controls.UI_LEFT_P)
 			changeDiff(-1);
-		if (controls.UI_RIGHT_P)
+		else if (controls.UI_RIGHT_P)
 			changeDiff(1);
+		else if (upP || downP) changeDiff();
 
 		if (controls.BACK)
 		{
+			persistentUpdate = false;
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-			FlxG.sound.music.fadeIn(4, 0, 0.7);
-			destroyFreeplayVocals();
 		}
 
-		#if PRELOAD_ALL
-		if(space && instPlaying != curSelected)
+		if(ctrl)
 		{
-			destroyFreeplayVocals();
-			Paths.currentModDirectory = songs[curSelected].folder;
-			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
-			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
-			if (PlayState.SONG.needsVoices)
-				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-			else
-				vocals = new FlxSound();
-
-			FlxG.sound.list.add(vocals);
-			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-			vocals.play();
-			vocals.persist = true;
-			vocals.looped = true;
-			vocals.volume = 0.7;
-			instPlaying = curSelected;
+			persistentUpdate = false;
+			openSubState(new GameplayChangersSubstate());
 		}
-		else #end if (accepted)
+		else if(space)
 		{
+			if(instPlaying != curSelected)
+			{
+				#if PRELOAD_ALL
+				destroyFreeplayVocals();
+				FlxG.sound.music.volume = 0;
+				Paths.currentModDirectory = songs[curSelected].folder;
+				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
+				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+				if (PlayState.SONG.needsVoices)
+					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+				else
+					vocals = new FlxSound();
+
+				FlxG.sound.list.add(vocals);
+				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+				vocals.play();
+				vocals.persist = true;
+				vocals.looped = true;
+				vocals.volume = 0.7;
+				instPlaying = curSelected;
+				#end
+			}
+		}
+
+		else if (accepted)
+		{
+			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
-			#if MODS_ALLOWED
+			/*#if MODS_ALLOWED
 			if(!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
 			#else
 			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
@@ -446,19 +503,23 @@ class FreeplayState extends MusicBeatState
 				poop = songLowercase;
 				curDifficulty = 1;
 				trace('Couldnt find file');
-			}
+			}*/
 			trace(poop);
 
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
 
-			PlayState.storyWeek = songs[curSelected].week;
 			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
-			LoadingState.loadAndSwitchState(new PlayState());
+			
+			if (FlxG.keys.pressed.SHIFT){
+				LoadingState.loadAndSwitchState(new ChartingState());
+			}else{
+				LoadingState.loadAndSwitchState(new PlayState());
+			}
 
 			FlxG.sound.music.volume = 0;
 					
@@ -466,6 +527,7 @@ class FreeplayState extends MusicBeatState
 		}
 		else if(controls.RESET)
 		{
+			persistentUpdate = false;
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
@@ -485,9 +547,11 @@ class FreeplayState extends MusicBeatState
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = CoolUtil.difficultyStuff.length-1;
-		if (curDifficulty >= CoolUtil.difficultyStuff.length)
+			curDifficulty = CoolUtil.difficulties.length-1;
+		if (curDifficulty >= CoolUtil.difficulties.length)
 			curDifficulty = 0;
+
+		lastDifficultyName = CoolUtil.difficulties[curDifficulty];
 
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
@@ -520,8 +584,10 @@ class FreeplayState extends MusicBeatState
 	var double2Tween:FlxTween;
 	var czTween:FlxTween;
 	var jorsawseeTween:FlxTween;
-	var betrayalTween:FlxTween;
 	var bfiTween:FlxTween;
+	var ttTween:FlxTween;
+	var susTween:FlxTween;
+	var infiTween:FlxTween;
 
 	function cancelTweens()
 	{
@@ -546,13 +612,15 @@ class FreeplayState extends MusicBeatState
 		double2Tween.cancel();
 		czTween.cancel();
 		jorsawseeTween.cancel();
-		betrayalTween.cancel();
 		bfiTween.cancel();
+		ttTween.cancel();
+		susTween.cancel();
+		infiTween.cancel();
 	}	
 
-	function changeSelection(change:Int = 0)
+	function changeSelection(change:Int = 0, playSound:Bool = true)
 	{
-		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		if(playSound) FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		curSelected += change;
 
@@ -560,7 +628,7 @@ class FreeplayState extends MusicBeatState
 			curSelected = songs.length - 1;
 		if (curSelected >= songs.length)
 			curSelected = 0;
-
+			
 		var newColor:Int = songs[curSelected].color;
 		if(newColor != intendedColor) {
 			if(colorTween != null) {
@@ -596,7 +664,6 @@ class FreeplayState extends MusicBeatState
 			bullShit++;
 
 			item.alpha = 0;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
 
 			if (item.targetY == 0)
 			{
@@ -604,10 +671,51 @@ class FreeplayState extends MusicBeatState
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
-		changeDiff();
+		
 		Paths.currentModDirectory = songs[curSelected].folder;
+		PlayState.storyWeek = songs[curSelected].week;
 
-	switch(songs[curSelected].week)
+		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
+		var diffStr:String = WeekData.getCurrentWeek().difficulties;
+		if(diffStr != null) diffStr = diffStr.trim(); //Fuck you HTML5
+
+		if(diffStr != null && diffStr.length > 0)
+		{
+			var diffs:Array<String> = diffStr.split(',');
+			var i:Int = diffs.length - 1;
+			while (i > 0)
+			{
+				if(diffs[i] != null)
+				{
+					diffs[i] = diffs[i].trim();
+					if(diffs[i].length < 1) diffs.remove(diffs[i]);
+				}
+				--i;
+			}
+
+			if(diffs.length > 0 && diffs[0].length > 0)
+			{
+				CoolUtil.difficulties = diffs;
+			}
+		}
+		
+		if(CoolUtil.difficulties.contains(CoolUtil.defaultDifficulty))
+		{
+			curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(CoolUtil.defaultDifficulty)));
+		}
+		else
+		{
+			curDifficulty = 0;
+		}
+
+		var newPos:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
+		//trace('Pos of ' + lastDifficultyName + ' is ' + newPos);
+		if(newPos > -1)
+		{
+			curDifficulty = newPos;
+		}
+		
+		switch(songs[curSelected].week)
 		{
 			case 0: 
 			{
@@ -636,8 +744,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 1: 
 			{
@@ -666,8 +776,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 2: 
 			{
@@ -696,8 +808,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 3: 
 			{
@@ -726,8 +840,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 4: 
 			{
@@ -756,8 +872,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 5: 
 			{
@@ -786,8 +904,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 6: 
 			{
@@ -816,8 +936,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 7: 
 			{
@@ -846,8 +968,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 8: 
 			{
@@ -876,8 +1000,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 9: 
 			{
@@ -906,8 +1032,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 10: 
 			{
@@ -936,8 +1064,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 11: 
 			{
@@ -966,8 +1096,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 12: 
 			{
@@ -996,8 +1128,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 13: 
 			{
@@ -1026,8 +1160,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 14: 
 			{
@@ -1056,8 +1192,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 15: 
 			{
@@ -1086,8 +1224,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 16: 
 			{
@@ -1116,8 +1256,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 17: 
 			{
@@ -1146,8 +1288,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 18: 
 			{
@@ -1176,8 +1320,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 19: 
 			{
@@ -1206,8 +1352,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 20: 
 			{
@@ -1236,8 +1384,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 21: 
 			{
@@ -1266,8 +1416,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 22: 
 			{
@@ -1296,8 +1448,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 23: 
 			{
@@ -1326,8 +1480,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 24: 
 			{
@@ -1356,8 +1512,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 25: 
 			{
@@ -1386,8 +1544,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 26: 
 			{
@@ -1416,8 +1576,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 27: 
 			{
@@ -1446,8 +1608,10 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 28: 
 			{
@@ -1476,40 +1640,12 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				bfiTween = FlxTween.tween(bfi,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 			}
 			case 29: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-			}
-			case 30: 
 			{
 				if(red1Tween != null)
 				{
@@ -1536,11 +1672,110 @@ class FreeplayState extends MusicBeatState
 				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				betrayalTween = FlxTween.tween(betrayal,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
 				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+			}
+			case 30: 
+			{
+				if(red1Tween != null)
+				{
+					cancelTweens();
+				}
+				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+			}
+			case 31: 
+			{
+				if(red1Tween != null)
+				{
+					cancelTweens();
+				}
+				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+			}
+			case 32: 
+			{
+				if(red1Tween != null)
+				{
+					cancelTweens();
+				}
+				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				infiTween = FlxTween.tween(infi,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
 			}
 		}
 	}
+
 	private function positionHighscore() {
 		scoreText.x = FlxG.width - scoreText.width - 6;
 

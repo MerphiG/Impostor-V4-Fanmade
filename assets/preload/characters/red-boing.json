@@ -2,8 +2,19 @@
 	"animations": [
 		{
 			"offsets": [
+				-51,
+				-23
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "impostor right"
+		},
+		{
+			"offsets": [
 				-61,
-				-15
+				-13
 			],
 			"loop": false,
 			"fps": 24,
@@ -13,7 +24,18 @@
 		},
 		{
 			"offsets": [
-				0,
+				-139,
+				-17
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "imposter left"
+		},
+		{
+			"offsets": [
+				1,
 				0
 			],
 			"loop": false,
@@ -24,42 +46,20 @@
 		},
 		{
 			"offsets": [
-				-99,
-				66
+				-129,
+				48
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
 			"name": "impostor up2"
-		},
-		{
-			"offsets": [
-				-190,
-				0
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singRIGHT",
-			"loop": false,
-			"name": "imposter left"
-		},
-		{
-			"offsets": [
-				-60,
-				1
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singLEFT",
-			"loop": false,
-			"name": "impostor right"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/oldred",
+	"image": "characters/impostor",
 	"position": [
-		-100,
+		-20,
 		400
 	],
 	"healthicon": "impostor",
@@ -74,5 +74,5 @@
 		0
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 1.1
 }

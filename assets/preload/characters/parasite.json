@@ -65,9 +65,9 @@
 	"healthicon": "parasite",
 	"flip_x": false,
 	"healthbar_colors": [
-		11,
-		162,
-		0
+		0,
+		100,
+		50
 	],
 	"camera_position": [
 		-400,

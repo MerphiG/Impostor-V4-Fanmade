@@ -32,7 +32,7 @@ class Sorry extends MusicBeatState
 			I'm Merphi, I don't own all the art and songs\n
 			I just tried to recreate a mod that will be out soon\n
 			All rights to songs, art, etc. belong to Team Funktastic\n
-			I spent over 300 hours of my time recreating the Impostor V4\n
+			I spent over 500 hours of my time recreating the Impostor V4\n
 			If you want to download the source code, then press ESC\n
 			If you want to play the mod, then press ENTER\n
 			I hope you understand and enjoy what i did",

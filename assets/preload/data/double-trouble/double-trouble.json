@@ -1,7 +1,6 @@
 {
 	"song": {
 		"player1": "bf",
-		"gfVersion": "gf",
 		"notes": [
 			{
 				"endTime": 995.850622406639,
@@ -31961,14 +31960,6 @@
 		],
 		"player2": "double0",
 		"chartVersion": "2",
-		"eventObjects": [
-			{
-				"type": "BPM Change",
-				"name": "0SM",
-				"position": 0,
-				"value": 241
-			}
-		],
 		"player3": "impostor3",
 		"song": "Double Trouble",
 		"needsVoices": true,

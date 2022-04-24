@@ -2,7 +2,7 @@
 	"song": {
 		"speed": 3,
 		"stage": "lounge",
-		"player1": "bfcopy",
+		"player1": "bf",
 		"player2": "jorsawsee",
 		"player3": "gf",
 		"notes": [

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="house.png">
+	<!-- Created with Adobe Animate version 21.0.1.37179 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="housescaled0000" x="0" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0001" x="0" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0002" x="0" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0003" x="1078" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0004" x="2156" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0005" x="2156" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0006" x="2156" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0007" x="2156" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0008" x="3234" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0009" x="4312" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0010" x="4312" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0011" x="4312" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0012" x="4312" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0013" x="5390" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0014" x="6468" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0015" x="6468" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0016" x="6468" y="0" width="1078" height="888"/>
+	<SubTexture name="housescaled0017" x="0" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0018" x="1078" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0019" x="1078" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0020" x="1078" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0021" x="2156" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0022" x="3234" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0023" x="3234" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0024" x="3234" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0025" x="3234" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0026" x="4312" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0027" x="4312" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0028" x="4312" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0029" x="5390" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0030" x="6468" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0031" x="6468" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0032" x="6468" y="888" width="1078" height="888"/>
+	<SubTexture name="housescaled0033" x="0" y="1776" width="1078" height="888"/>
+	<SubTexture name="housescaled0034" x="1078" y="1776" width="1078" height="888"/>
+	<SubTexture name="housescaled0035" x="1078" y="1776" width="1078" height="888"/>
+	<SubTexture name="housescaled0036" x="1078" y="1776" width="1078" height="888"/>
+</TextureAtlas>

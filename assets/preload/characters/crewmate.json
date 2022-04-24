@@ -65,9 +65,9 @@
 	"healthicon": "crewmate",
 	"flip_x": false,
 	"healthbar_colors": [
-		64,
-		171,
-		34
+		11,
+		162,
+		0
 	],
 	"camera_position": [
 		0,

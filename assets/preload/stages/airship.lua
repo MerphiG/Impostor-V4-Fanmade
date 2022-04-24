@@ -1,9 +1,9 @@
-local xx = 670;
-local yy = 825;
+local xx = 840;
+local yy = 625;
 local ofs = 30;
 local ofs2 = 30;
-local xx2 = 925;
-local yy2 = 785;
+local xx2 = 1250;
+local yy2 = 625;
 local followchars = true;
 
 function onUpdate()

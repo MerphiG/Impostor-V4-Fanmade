@@ -18,26 +18,32 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
-import flixel.util.FlxTimer;
 import Achievements;
 import editors.MasterEditorMenu;
+import flixel.input.keyboard.FlxKey;
 
 using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.4.2'; //This is also used for Discord RPC
-	var curSelected:Int = 0;
+	public static var psychEngineVersion:String = '0.5.2'; //This is also used for Discord RPC
+	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
-	var optionShit:Array<String> = ['story', 'freeplay', 'options', 'discord'];
+	var optionShit:Array<String> = [
+		'story',
+		'freeplay',
+		'options',
+		'discord',
+	];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
+	var debugKeys:Array<FlxKey>;
 
 	var starFG:FlxBackdrop;
 	var starBG:FlxBackdrop;
@@ -47,12 +53,13 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		WeekData.loadTheFirstEnabledMod();
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
-		
-		FlxG.mouse.visible = false;
+		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
@@ -61,6 +68,9 @@ class MainMenuState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];
+
+		transIn = FlxTransitionableState.defaultTransIn;
+		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
 
@@ -150,17 +160,22 @@ class MainMenuState extends MusicBeatState
 		logo.y -= 160;
 		add(logo);
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 20, 900, "Psych Engine 0.4.2 - V.S. Impostor by Team Funktastic");
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 65, 900, "Psych Engine 0.5.2 - V.S. Impostor by Team Funktastic");
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.screenCenter(X);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 35, 900, "Big thanks to Betrayal developers, Uhard, HopKa and Lenya The Cat");
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 50, 900, "If you wan't use my fanmade for your mod, just add my nickname in credits.");
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.screenCenter(X);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 50, 900, "V.S. Impostor v4 - FanMade by: Merphi");
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 35, 900, "Big thanks to Betrayal developers, Hershey, Uhard, HopKa, Lenya The Cat, Sirox, LEOAQUIBOT, murkedGuyyr, Sotopia, VanDaniel, Flopster, Nes, FNF fan, Fran, GrishaAsd, Bravu and AlexZockt.");
+		versionShit.scrollFactor.set();
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.screenCenter(X);
+		add(versionShit);
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 80, 900, "V.S. Impostor v4 - Fanmade by: Merphi");
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.screenCenter(X);
@@ -180,7 +195,7 @@ class MainMenuState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
+		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		menuItems.forEach(function(spr:FlxSprite)
@@ -220,6 +235,7 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
+
 			if (controls.ACCEPT)
 			{
 					if (optionShit[curSelected] == 'discord')
@@ -268,20 +284,21 @@ class MainMenuState extends MusicBeatState
 								case 'freeplay':
 									MusicBeatState.switchState(new FreeplayState());
 								case 'options':
-									MusicBeatState.switchState(new OptionsState());
+									LoadingState.loadAndSwitchState(new options.OptionsState());
 							}
 						}
 					});
 				}
 			}
 			#if desktop
-			else if (FlxG.keys.justPressed.SEVEN)
+			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
 				selectedSomethin = true;
-				FlxG.switchState(new MasterEditorMenu());
+				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
 		}
+
 		super.update(elapsed);
 	}
 

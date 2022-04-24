@@ -3,7 +3,40 @@
 		{
 			"loop": false,
 			"offsets": [
-				0,
+				-41,
+				7
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "impostor right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-61,
+				-23
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "impostor down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				140,
+				-17
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "imposter left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				1,
 				0
 			],
 			"anim": "idle",
@@ -14,45 +47,12 @@
 		{
 			"loop": false,
 			"offsets": [
-				-25,
-				54
+				-59,
+				46
 			],
 			"anim": "singUP",
 			"fps": 24,
-			"name": "impostor up",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-36,
-				13
-			],
-			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "impostor right",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-28,
-				-17
-			],
-			"anim": "singDOWN",
-			"fps": 24,
-			"name": "impostor down",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				113,
-				-6
-			],
-			"anim": "singLEFT",
-			"fps": 24,
-			"name": "imposter left",
+			"name": "impostor up2",
 			"indices": []
 		}
 	],
@@ -65,9 +65,9 @@
 	"healthicon": "impostor2",
 	"flip_x": false,
 	"healthbar_colors": [
-		246,
-		30,
-		54
+		229,
+		61,
+		45
 	],
 	"camera_position": [
 		0,

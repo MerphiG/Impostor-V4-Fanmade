@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="sus_font.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="!0000" x="4" y="4" width="113" height="353"/>
+	<SubTexture name="?0000" x="121" y="4" width="139" height="353"/>
+	<SubTexture name="A0000" x="264" y="4" width="176" height="353"/>
+	<SubTexture name="B0000" x="444" y="4" width="160" height="353"/>
+	<SubTexture name="B0001" x="444" y="4" width="160" height="353"/>
+	<SubTexture name="B0002" x="444" y="4" width="160" height="353"/>
+	<SubTexture name="B0003" x="444" y="4" width="160" height="353"/>
+	<SubTexture name="B0004" x="444" y="4" width="160" height="353"/>
+	<SubTexture name="B0005" x="444" y="4" width="160" height="353"/>
+	<SubTexture name="C0000" x="608" y="4" width="170" height="353"/>
+	<SubTexture name="D0000" x="782" y="4" width="189" height="353"/>
+	<SubTexture name="E0000" x="975" y="4" width="144" height="353"/>
+	<SubTexture name="F0000" x="1123" y="4" width="138" height="353"/>
+	<SubTexture name="G0000" x="1265" y="4" width="185" height="353"/>
+	<SubTexture name="H0000" x="1454" y="4" width="167" height="353"/>
+	<SubTexture name="I0000" x="1625" y="4" width="135" height="353"/>
+	<SubTexture name="J0000" x="1764" y="4" width="140" height="353"/>
+	<SubTexture name="K0000" x="1908" y="4" width="179" height="353"/>
+	<SubTexture name="L0000" x="2091" y="4" width="132" height="353"/>
+	<SubTexture name="M0000" x="2227" y="4" width="222" height="353"/>
+	<SubTexture name="N0000" x="4" y="361" width="203" height="353"/>
+	<SubTexture name="O0000" x="211" y="361" width="178" height="353"/>
+	<SubTexture name="P0000" x="393" y="361" width="148" height="354"/>
+	<SubTexture name="Q0000" x="545" y="361" width="197" height="354"/>
+	<SubTexture name="R0000" x="746" y="361" width="149" height="353"/>
+	<SubTexture name="S0000" x="899" y="361" width="157" height="353"/>
+	<SubTexture name="T0000" x="1060" y="361" width="137" height="353"/>
+	<SubTexture name="U0000" x="1201" y="361" width="199" height="353"/>
+	<SubTexture name="V0000" x="1404" y="361" width="176" height="353"/>
+	<SubTexture name="W0000" x="1584" y="361" width="240" height="353"/>
+	<SubTexture name="X0000" x="1828" y="361" width="156" height="353"/>
+	<SubTexture name="Y0000" x="1988" y="361" width="138" height="353"/>
+	<SubTexture name="Z0000" x="2130" y="361" width="137" height="353"/>
+</TextureAtlas>
