@@ -1,0 +1,30 @@
+{
+	"songs": [
+		[
+			"Heartbroken",
+			"pink",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideFreeplay": true,
+	"weekBackground": "stage",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "Pink",
+	"weekName": "tt-pink",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

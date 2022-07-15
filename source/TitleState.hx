@@ -45,8 +45,6 @@ typedef TitleData =
 	titley:Float,
 	startx:Float,
 	starty:Float,
-	gfx:Float,
-	gfy:Float,
 	backgroundSprite:String,
 	bpm:Int
 }
@@ -72,8 +70,6 @@ class TitleState extends MusicBeatState
 
 	var mustUpdate:Bool = false;
 	
-	var titleJSON:TitleData;
-	
 	public static var updateVersion:String = '';
 
 	override public function create():Void
@@ -81,7 +77,6 @@ class TitleState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		WeekData.loadTheFirstEnabledMod();
 		
 		//trace(path, FileSystem.exists(path));
@@ -146,9 +141,6 @@ class TitleState extends MusicBeatState
 		
 		Highscore.load();
 
-		// IGNORE THIS!!!
-		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
-
 		if(!initialized && FlxG.save.data != null && FlxG.save.data.fullscreen)
 		{
 			FlxG.fullscreen = FlxG.save.data.fullscreen;
@@ -190,8 +182,6 @@ class TitleState extends MusicBeatState
 	}
 
 	var logoBl:FlxSprite;
-	var gfDance:FlxSprite;
-	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
 
@@ -227,21 +217,8 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		Conductor.changeBPM(titleJSON.bpm);
+		Conductor.changeBPM(102);
 		persistentUpdate = true;
-
-		var bg:FlxSprite = new FlxSprite();
-		
-		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
-			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
-		}else{
-			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		}
-		
-		// bg.antialiasing = ClientPrefs.globalAntialiasing;
-		// bg.setGraphicSize(Std.int(bg.width * 0.6));
-		// bg.updateHitbox();
-		add(bg);
 
 		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.scrollFactor.set();
@@ -369,11 +346,19 @@ class TitleState extends MusicBeatState
 				transitioning = true;
 				// FlxG.sound.music.stop();
 
-				new FlxTimer().start(1, function(tmr:FlxTimer)
-				{
-					MusicBeatState.switchState(new Sorry());
-					closedState = true;
-				});
+				if (ClientPrefs.ShowScreenAfterTitleState) {
+					new FlxTimer().start(0, function(tmr:FlxTimer)
+					{
+						MusicBeatState.switchState(new AfterTitleState());
+						closedState = true;
+					});
+				} else {
+					new FlxTimer().start(0, function(tmr:FlxTimer)
+					{
+						MusicBeatState.switchState(new MainMenuState());
+						closedState = true;
+					});
+				}
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 			}
 		}
@@ -434,14 +419,6 @@ class TitleState extends MusicBeatState
 
 		if(logoBl != null) 
 			logoBl.animation.play('bump', true);
-
-		if(gfDance != null) {
-			danceLeft = !danceLeft;
-			if (danceLeft)
-				gfDance.animation.play('danceRight');
-			else
-				gfDance.animation.play('danceLeft');
-		}
 
 		if(!closedState) {
 			sickBeats++;

@@ -5,7 +5,7 @@ IntroTagWidth = 15
 Name = 'Oversight'
 Author = 'Rareblin'
 FanAuthor = 'Flopster'
-FanAuthorOn = true
+FanAuthorOn = false
 
 function onCreate()
 	makeLuaSprite('JukeBoxTag', 'empty', -375-IntroTagWidth, 35)

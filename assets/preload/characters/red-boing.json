@@ -2,14 +2,14 @@
 	"animations": [
 		{
 			"offsets": [
-				-51,
-				-23
+				-139,
+				-17
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
-			"name": "impostor right"
+			"name": "imposter left"
 		},
 		{
 			"offsets": [
@@ -24,14 +24,14 @@
 		},
 		{
 			"offsets": [
-				-139,
-				-17
+				-51,
+				-23
 			],
 			"loop": false,
 			"fps": 24,
-			"anim": "singLEFT",
+			"anim": "singLEFT",			
 			"indices": [],
-			"name": "imposter left"
+			"name": "impostor right"
 		},
 		{
 			"offsets": [
@@ -60,7 +60,7 @@
 	"image": "characters/impostor",
 	"position": [
 		-20,
-		400
+		330
 	],
 	"healthicon": "impostor",
 	"flip_x": false,

@@ -1,0 +1,49 @@
+{
+	"song": {
+		"speed": 2.8,
+		"stage": "airship",
+		"player1": "bf",
+		"player2": "white",
+		"player3": null,
+		"events": [
+			[
+				82285.7142857143,
+				[
+					[
+						"Flashes Camera",
+						"",
+						""
+					],
+					[
+						"HP, Time and Info",
+						"0",
+						"0.25"
+					]
+				]
+			],
+			[
+				109714.285714286,
+				[
+					[
+						"HP, Time and Info",
+						"1",
+						"0.25"
+					],
+					[
+						"Flashes Camera",
+						"",
+						""
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "gf",
+		"bpm": 140,
+		"arrowSkin": null,
+		"needsVoices": false,
+		"song": "Oversight"
+	}
+}

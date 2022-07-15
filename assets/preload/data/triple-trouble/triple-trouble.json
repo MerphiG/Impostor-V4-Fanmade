@@ -461,7 +461,7 @@
 					[
 						"Change Character",
 						"0",
-						"bf"
+						"bf-tt"
 					],
 					[
 						"Zoom",
@@ -30185,6 +30185,6 @@
 		"validScore": true,
 		"noteStyle": null,
 		"bpm": 146,
-		"speed": 3
+		"speed": 3.2
 	}
 }

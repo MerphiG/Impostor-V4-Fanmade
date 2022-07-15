@@ -2,58 +2,58 @@
 	"animations": [
 		{
 			"offsets": [
-				-73,
-				-3
+				-74,
+				-4
 			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singRIGHT",
 			"indices": [],
-			"name": "Right"
-		},
-		{
-			"offsets": [
-				-64,
-				-24
-			],
-			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Down"
-		},
-		{
-			"offsets": [
-				56,
-				2
-			],
 			"loop": false,
-			"fps": 24,
-			"anim": "singLEFT",
-			"indices": [],
-			"name": "Left"
+			"name": "WhiteDownPose"
 		},
 		{
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
+			"indices": [],
 			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Idle"
+			"loop": false,
+			"name": "WhiteIdleDance"
 		},
 		{
 			"offsets": [
-				-29,
-				10
+				-84,
+				0
 			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
 			"loop": false,
+			"name": "WhiteLeftPose"
+		},
+		{
+			"offsets": [
+				10,
+				34
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "WhiteRIghtPose"
+		},
+		{
+			"offsets": [
+				-19,
+				72
+			],
+			"indices": [],
 			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Up"
+			"loop": false,
+			"name": "WhiteUpPose"
 		}
 	],
 	"no_antialiasing": false,
@@ -65,9 +65,9 @@
 	"healthicon": "white",
 	"flip_x": false,
 	"healthbar_colors": [
-		215,
-		215,
-		215
+		207,
+		228,
+		255
 	],
 	"camera_position": [
 		270,

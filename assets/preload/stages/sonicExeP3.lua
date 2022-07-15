@@ -21,14 +21,16 @@ function onCreate()
 		setObjectCamera('daSTAT', 'other')
 		setProperty('daSTAT.alpha', 0.3)
 		setProperty('daSTAT.visible', false)
-		addLuaSprite('daSTAT', true)
-
-		makeAnimatedLuaSprite('plasticShit', 'tt/NewTitleMenuBG', -500, -400)
-		addAnimationByPrefix('plasticShit', 'ImGonnaDie', 'TitleMenuSSBG instance 1', 24, true)
-		setProperty('plasticShit.visible', false)
-		addLuaSprite('plasticShit', true)
-		scaleObject('plasticShit', 6.5, 5)
-
+		addLuaSprite('daSTAT', true)	
+	end
+	
+	makeAnimatedLuaSprite('plasticShit', 'tt/NewTitleMenuBG', -500, -400)
+	addAnimationByPrefix('plasticShit', 'ImGonnaDie', 'TitleMenuSSBG instance 1', 24, true)
+	setProperty('plasticShit.visible', false)
+	addLuaSprite('plasticShit', true)
+	scaleObject('plasticShit', 6.5, 5)
+	
+	if getPropertyFromClass('ClientPrefs', 'Optimization') == false then
 		makeLuaSprite('trees1', 'tt/Trees', -607, -401)
 		addLuaSprite('trees1', true)
 		setScrollFactor('trees1', 0.95, 1)

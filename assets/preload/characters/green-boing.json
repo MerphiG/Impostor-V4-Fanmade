@@ -60,7 +60,7 @@
 	"image": "characters/impostor3",
 	"position": [
 		180,
-		130
+		90
 	],
 	"healthicon": "impostor3",
 	"flip_x": false,

@@ -1,0 +1,59 @@
+{
+	"song": {
+		"speed": 2.8,
+		"stage": "polus",
+		"player1": "bf",
+		"player2": "impostor",
+		"player3": "nothing",
+		"events": [
+			[
+				42416.6666666667,
+				[
+					[
+						"HP, Time and Info",
+						"0",
+						"0.25"
+					],
+					[
+						"For Cleaning Song",
+						"1",
+						"0.25"
+					],
+					[
+						"Flashes Camera",
+						"",
+						""
+					]
+				]
+			],
+			[
+				63666.6666666667,
+				[
+					[
+						"For Cleaning Song",
+						"0",
+						"0.25"
+					],
+					[
+						"HP, Time and Info",
+						"1",
+						"0.25"
+					],
+					[
+						"Flashes Camera",
+						"",
+						""
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": null,
+		"bpm": 180,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "Cleaning"
+	}
+}

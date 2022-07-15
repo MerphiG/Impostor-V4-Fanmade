@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="white_dark.png">
+	<!-- Created with Adobe Animate version 16.0.0.112 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="WhiteDownPose0000" x="669" y="2262" width="503" height="458" pivotX="227" pivotY="64.7" frameX="0" frameY="-21" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0001" x="669" y="2262" width="503" height="458" frameX="0" frameY="-21" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0002" x="3546" y="1784" width="490" height="476" frameX="-9" frameY="-12" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0003" x="3546" y="1784" width="490" height="476" frameX="-9" frameY="-12" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0004" x="0" y="2284" width="466" height="478" frameX="-34" frameY="0" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0005" x="0" y="2284" width="466" height="478" frameX="-34" frameY="0" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0006" x="1182" y="2695" width="464" height="467" frameX="-38" frameY="0" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0007" x="1182" y="2695" width="464" height="467" frameX="-38" frameY="0" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0008" x="0" y="2772" width="464" height="464" frameX="-38" frameY="-3" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0009" x="0" y="2772" width="464" height="464" frameX="-38" frameY="-3" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0010" x="2608" y="3097" width="464" height="461" frameX="-38" frameY="-6" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0011" x="2608" y="3097" width="464" height="461" frameX="-38" frameY="-6" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0012" x="2608" y="3097" width="464" height="461" frameX="-38" frameY="-6" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0013" x="2608" y="3097" width="464" height="461" frameX="-38" frameY="-6" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0014" x="2608" y="3097" width="464" height="461" frameX="-38" frameY="-6" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0015" x="2608" y="3097" width="464" height="461" frameX="-38" frameY="-6" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0016" x="2608" y="3097" width="464" height="461" frameX="-38" frameY="-6" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteDownPose0017" x="2608" y="3097" width="464" height="461" frameX="-38" frameY="-6" frameWidth="503" frameHeight="488"/>
+	<SubTexture name="WhiteIdleDance0000" x="2072" y="2261" width="683" height="415" pivotX="283.5" pivotY="74.35" frameX="-15" frameY="-22" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0001" x="2072" y="2261" width="683" height="415" frameX="-15" frameY="-22" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0002" x="2072" y="2261" width="683" height="415" frameX="-15" frameY="-22" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0003" x="0" y="1409" width="693" height="424" frameX="0" frameY="-17" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0004" x="0" y="1409" width="693" height="424" frameX="0" frameY="-17" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0005" x="703" y="1833" width="690" height="419" frameX="-1" frameY="-11" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0006" x="703" y="1833" width="690" height="419" frameX="-1" frameY="-11" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0007" x="1490" y="1820" width="686" height="424" frameX="-1" frameY="-4" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0008" x="1490" y="1820" width="686" height="424" frameX="-1" frameY="-4" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0009" x="2855" y="1784" width="681" height="428" frameX="-3" frameY="0" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0010" x="2855" y="1784" width="681" height="428" frameX="-3" frameY="0" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0011" x="2855" y="1784" width="681" height="428" frameX="-3" frameY="0" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0012" x="2855" y="1784" width="681" height="428" frameX="-3" frameY="0" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0013" x="2855" y="1784" width="681" height="428" frameX="-3" frameY="0" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0014" x="2855" y="1784" width="681" height="428" frameX="-3" frameY="0" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteIdleDance0015" x="2855" y="1784" width="681" height="428" frameX="-3" frameY="0" frameWidth="698" frameHeight="441"/>
+	<SubTexture name="WhiteLeftPose0000" x="2765" y="2663" width="523" height="424" pivotX="171.6" pivotY="65.7" frameX="0" frameY="0" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0001" x="2765" y="2663" width="523" height="424" frameX="0" frameY="0" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0002" x="745" y="971" width="528" height="412" frameX="-24" frameY="-12" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0003" x="745" y="971" width="528" height="412" frameX="-24" frameY="-12" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0004" x="3298" y="2705" width="519" height="417" frameX="-48" frameY="-7" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0005" x="476" y="2730" width="519" height="417" frameX="-48" frameY="-7" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0006" x="2072" y="2686" width="526" height="421" frameX="-41" frameY="-7" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0007" x="2072" y="2686" width="526" height="421" frameX="-41" frameY="-7" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0008" x="3524" y="2270" width="526" height="425" frameX="-41" frameY="-3" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0009" x="3524" y="2270" width="526" height="425" frameX="-41" frameY="-3" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0010" x="3524" y="2270" width="526" height="425" frameX="-41" frameY="-3" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0011" x="3524" y="2270" width="526" height="425" frameX="-41" frameY="-3" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0012" x="3524" y="2270" width="526" height="425" frameX="-41" frameY="-3" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0013" x="3524" y="2270" width="526" height="425" frameX="-41" frameY="-3" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0014" x="3524" y="2270" width="526" height="425" frameX="-41" frameY="-3" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteLeftPose0015" x="3524" y="2270" width="526" height="425" frameX="-41" frameY="-3" frameWidth="567" frameHeight="428"/>
+	<SubTexture name="WhiteRIghtPose0000" x="850" y="0" width="791" height="464" pivotX="259.5" pivotY="110.45" frameX="-12" frameY="0" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0001" x="850" y="0" width="791" height="464" frameX="-12" frameY="0" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0002" x="3226" y="0" width="780" height="445" frameX="-4" frameY="-19" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0003" x="3226" y="0" width="780" height="445" frameX="-4" frameY="-19" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0004" x="3226" y="455" width="758" height="434" frameX="0" frameY="-30" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0005" x="2342" y="497" width="735" height="437" frameX="-10" frameY="-27" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0006" x="3087" y="899" width="735" height="437" frameX="-10" frameY="-27" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0007" x="0" y="971" width="735" height="428" frameX="-10" frameY="-36" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0008" x="3084" y="1346" width="735" height="428" frameX="-10" frameY="-36" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0009" x="2110" y="1385" width="735" height="425" frameX="-10" frameY="-39" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0010" x="745" y="1398" width="735" height="425" frameX="-10" frameY="-39" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0011" x="745" y="1398" width="735" height="425" frameX="-10" frameY="-39" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0012" x="745" y="1398" width="735" height="425" frameX="-10" frameY="-39" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0013" x="745" y="1398" width="735" height="425" frameX="-10" frameY="-39" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteRIghtPose0014" x="745" y="1398" width="735" height="425" frameX="-10" frameY="-39" frameWidth="803" frameHeight="464"/>
+	<SubTexture name="WhiteUpPose0000" x="0" y="449" width="681" height="499" pivotX="243.3" pivotY="144.7" frameX="-14" frameY="0" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0001" x="1651" y="449" width="681" height="499" frameX="-14" frameY="0" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0002" x="691" y="474" width="667" height="487" frameX="-10" frameY="-12" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0003" x="2495" y="0" width="721" height="487" frameX="-10" frameY="-12" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0004" x="0" y="0" width="840" height="439" frameX="0" frameY="-60" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0005" x="1651" y="0" width="834" height="439" frameX="-6" frameY="-60" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0006" x="1368" y="958" width="732" height="430" frameX="-6" frameY="-69" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0007" x="1368" y="958" width="732" height="430" frameX="-6" frameY="-69" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0008" x="2342" y="944" width="732" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0009" x="2342" y="944" width="732" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0010" x="2342" y="944" width="732" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0011" x="2342" y="944" width="732" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0012" x="2342" y="944" width="732" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0013" x="2342" y="944" width="732" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0014" x="2342" y="944" width="732" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0015" x="2186" y="1820" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0016" x="2186" y="1820" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0017" x="0" y="1843" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0018" x="0" y="1843" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0019" x="2855" y="2222" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0020" x="2855" y="2222" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0021" x="2855" y="2222" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0022" x="1403" y="2254" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0023" x="1403" y="2254" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0024" x="1403" y="2254" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0025" x="1403" y="2254" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0026" x="1403" y="2254" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0027" x="1403" y="2254" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0028" x="1403" y="2254" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+	<SubTexture name="WhiteUpPose0029" x="1403" y="2254" width="659" height="431" frameX="-6" frameY="-68" frameWidth="840" frameHeight="499"/>
+</TextureAtlas>

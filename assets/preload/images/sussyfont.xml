@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="sussyfont.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="A bold0000" x="4" y="4" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="APOSTRAPHIE bold0000" x="52" y="4" width="44" height="97" frameX="10" frameY="-20" frameWidth="10" frameHeight="0"/>
+	<SubTexture name="B bold0000" x="100" y="4" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="C bold0000" x="148" y="4" width="44" height="97" frameX="5" frameY="-10" frameWidth="20" frameHeight="0"/>
+	<SubTexture name="D bold0000" x="196" y="4" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="E bold0000" x="244" y="4" width="44" height="97" frameX="3" frameY="-10" frameWidth="20" frameHeight="0"/>
+	<SubTexture name="END PARENTHESES bold0000" x="292" y="4" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="EXCLAMATION POINT bold0000" x="340" y="4" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="F bold0000" x="388" y="4" width="44" height="97" frameX="5" frameY="-10" frameWidth="20" frameHeight="0"/>
+	<SubTexture name="G bold0000" x="436" y="4" width="44" height="97" frameX="-2" frameY="-10" frameWidth="30" frameHeight="0"/>
+	<SubTexture name="H bold0000" x="484" y="4" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="I bold0000" x="532" y="4" width="44" height="97" frameX="5" frameY="-10" frameWidth="20" frameHeight="0"/>
+	<SubTexture name="J bold0000" x="580" y="4" width="44" height="97" frameX="5" frameY="-10" frameWidth="20" frameHeight="0"/>
+	<SubTexture name="K bold0000" x="628" y="4" width="44" height="97" frameX="3" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="L bold0000" x="676" y="4" width="44" height="97" frameX="5" frameY="-10" frameWidth="17" frameHeight="0"/>
+	<SubTexture name="M bold0000" x="724" y="4" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="N bold0000" x="4" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="O bold0000" x="52" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="P bold0000" x="100" y="105" width="44" height="97" frameX="5" frameY="-10" frameWidth="15" frameHeight="0"/>
+	<SubTexture name="PERIOD bold0000" x="148" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="Q bold0000" x="196" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="QUESTION MARK bold0000" x="244" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="R bold0000" x="292" y="105" width="44" height="97" frameX="5" frameY="-10" frameWidth="20" frameHeight="0"/>
+	<SubTexture name="S bold0000" x="340" y="105" width="44" height="97" frameX="2" frameY="-10" frameWidth="20" frameHeight="0"/>
+	<SubTexture name="T bold0000" x="388" y="105" width="44" height="97" frameX="5" frameY="-10" frameWidth="20" frameHeight="0"/>
+	<SubTexture name="U bold0000" x="436" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="V bold0000" x="484" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="W bold0000" x="532" y="105" width="44" height="97" frameX="-5" frameY="-10" frameWidth="35" frameHeight="0"/>
+	<SubTexture name="X bold0000" x="580" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="Y bold0000" x="628" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="Z bold0000" x="676" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+	<SubTexture name="bold -0000" x="724" y="105" width="44" height="97" frameX="0" frameY="-10" frameWidth="25" frameHeight="0"/>
+</TextureAtlas>

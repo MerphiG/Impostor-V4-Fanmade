@@ -14,7 +14,7 @@ function goodNoteHit(id, noteData, noteType, isSustainNote)
 	if noteType == 'Phantom Note' then
 		setScore(score - 350)
 		characterPlayAnim('boyfriend', 'hurt', true);
-		healthDrain = healthDrain + crochet * 2;
+		healthDrain = healthDrain + crochet * 1.25;
 		Draining = Draining + 0.1;
 	end
 end

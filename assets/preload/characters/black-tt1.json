@@ -1,70 +1,70 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
-				46,
-				104
+				23,
+				150
 			],
-			"anim": "singUP",
+			"indices": [],
 			"fps": 24,
-			"name": "BLACK UP",
-			"indices": []
+			"anim": "singUP",
+			"loop": false,
+			"name": "Up"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-214,
+				-340,
 				-10
 			],
+			"indices": [],
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "BLACK RIGHT",
-			"indices": []
+			"loop": false,
+			"name": "Right"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-18,
-				-20
+				-89,
+				-28
 			],
+			"indices": [],
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "BLACK DOWN",
-			"indices": []
-		},
-		{
 			"loop": false,
-			"offsets": [
-				116,
-				12
-			],
-			"anim": "singLEFT",
-			"fps": 24,
-			"name": "BLACK LEFT",
-			"indices": []
+			"name": "Down"
 		},
 		{
-			"loop": true,
+			"offsets": [
+				101,
+				-1
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "Left"
+		},
+		{
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"indices": [],
 			"fps": 24,
-			"name": "BLACK IDLE",
-			"indices": []
+			"anim": "idle",
+			"loop": true,
+			"name": "Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				255,
-				238
+				147,
+				240
 			],
-			"anim": "death",
+			"indices": [],
 			"fps": 24,
-			"name": "BLACK DEATH",
-			"indices": []
+			"anim": "death",
+			"loop": false,
+			"name": "Die"
 		}
 	],
 	"no_antialiasing": false,

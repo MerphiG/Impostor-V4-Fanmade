@@ -1,0 +1,57 @@
+{
+	"songs": [
+		[
+			"Insane",
+			"gray",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Blackout",
+			"gray",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Nyctophobia",
+			"gray",
+			[
+				255,
+				255,
+				255
+			]
+		],
+		[
+			"Massacre",
+			"gray",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideFreeplay": true,
+	"weekBackground": "stage",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "Gray",
+	"weekName": "tt-gray",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

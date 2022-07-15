@@ -384,7 +384,11 @@ class StoryMenuState extends MusicBeatState
 					case 4:
 						grpWeekText.members[curWeek].startFlashing(0xFF3A7734);
 					case 5:
-						grpWeekText.members[curWeek].startFlashing(0xFF356C7A);
+						grpWeekText.members[curWeek].startFlashing(0xFF463F91);
+					case 6:
+						grpWeekText.members[curWeek].startFlashing(0xFF8E3E3E);
+					case 7:
+						grpWeekText.members[curWeek].startFlashing(0xFFAD4C81);
 				}
 
 				var bf:MenuCharacter = grpWeekCharacters.members[1];
@@ -661,27 +665,7 @@ class StoryMenuState extends MusicBeatState
 				});
 				FlxTween.tween(bgSky, {alpha: 0}, 0.4, {ease: FlxEase.expoIn});
 			}
-			case 4:
-			{
-				if(groundTween != null)
-				{
-						cancelTweens();
-				}
-				groundTween = FlxTween.tween(polusGround,{y: 1169.29}, 0.5 ,{ease: FlxEase.expoIn});
-				hillsTween = FlxTween.tween(polusHills,{y: 873.62}, 0.6 ,{ease: FlxEase.expoIn});
-				rocksTween = FlxTween.tween(polusRocks,{y: 712.09}, 0.8 ,{ease: FlxEase.expoIn});
-				warehouseTween = FlxTween.tween(polusWarehouse,{y: 1220.92}, 0.7 ,{ease: FlxEase.expoIn});
-				reactorTween = FlxTween.tween(reactor,{y: -400}, 0.6 ,{ease: FlxEase.expoIn});
-				ballerTween = FlxTween.tween(baller,{y: 100}, 0.8 ,{ease: FlxEase.expoIn});
-				defeatTween = FlxTween.tween(defeatScroll,{y: 937}, 3 ,{ease: FlxEase.expoOut});
-
-				effectTween = FlxTween.num(MosaicEffect.DEFAULT_STRENGTH, 15, 0.5, {type: ONESHOT}, function(v)
-				{
-					effect.setStrength(v, v);
-				});
-				FlxTween.tween(bgSky, {alpha: 0}, 0.4, {ease: FlxEase.expoIn});
-			}
-			case 5:
+			case 4 | 5 | 6 | 7:
 			{
 				if(groundTween != null)
 				{

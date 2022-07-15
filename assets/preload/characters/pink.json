@@ -65,9 +65,9 @@
 	"healthicon": "pink",
 	"flip_x": false,
 	"healthbar_colors": [
-		185,
-		0,
-		212
+		210,
+		100,
+		152
 	],
 	"camera_position": [
 		0,

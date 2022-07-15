@@ -1,0 +1,124 @@
+{
+	"song": {
+		"speed": 3,
+		"stage": "despair",
+		"player1": "bf-despair",
+		"player2": "gray_nm",
+		"player3": null,
+		"events": [
+			[
+				400,
+				[
+					[
+						"Set Cam Zoom",
+						"0.60",
+						"1"
+					]
+				]
+			],
+			[
+				6160,
+				[
+					[
+						"Set Cam Zoom",
+						"0.60",
+						"1"
+					]
+				]
+			],
+			[
+				103680,
+				[
+					[
+						"Play Animation",
+						"2",
+						""
+					],
+					[
+						"Flashes Camera",
+						"1",
+						""
+					]
+				]
+			],
+			[
+				103760,
+				[
+					[
+						"Set Cam Zoom",
+						"0.45",
+						"1"
+					]
+				]
+			],
+			[
+				148480,
+				[
+					[
+						"Set Cam Zoom",
+						"1.3",
+						"2"
+					]
+				]
+			],
+			[
+				166400,
+				[
+					[
+						"Set Cam Zoom",
+						"0.75",
+						"2"
+					]
+				]
+			],
+			[
+				251520,
+				[
+					[
+						"Set Cam Zoom",
+						"1.4",
+						"1"
+					]
+				]
+			],
+			[
+				257200,
+				[
+					[
+						"Flashes Camera",
+						"2",
+						""
+					]
+				]
+			],
+			[
+				257280,
+				[
+					[
+						"Play Animation",
+						"3",
+						""
+					]
+				]
+			],
+			[
+				257520,
+				[
+					[
+						"Set Cam Zoom",
+						"0.60",
+						"1"
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "nothing",
+		"bpm": 187.5,
+		"arrowSkin": null,
+		"needsVoices": false,
+		"song": "Despair"
+	}
+}

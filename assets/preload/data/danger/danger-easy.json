@@ -6604,13 +6604,13 @@
 				"mustHitSection": true
 			}
 		],
-		"player2": "black",
-		"player3": "nothing",
+		"player2": "black_danger",
+		"player3": "white_danger",
 		"song": "Danger",
 		"needsVoices": false,
 		"validScore": true,
 		"sections": 0,
-		"stage": "defeat",
+		"stage": "airship-dk",
 		"speed": 2.4,
 		"bpm": 180
 	}

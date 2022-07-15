@@ -21,13 +21,14 @@ import lime.app.Application;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import flixel.util.FlxTimer;
 
 using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.5.2'; //This is also used for Discord RPC
-	public static var curSelected:Int = 0;
+	public var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
@@ -37,7 +38,8 @@ class MainMenuState extends MusicBeatState
 		'story',
 		'freeplay',
 		'options',
-		'discord',
+		'awards',
+		'discord'
 	];
 
 	var magenta:FlxSprite;
@@ -138,13 +140,15 @@ class MainMenuState extends MusicBeatState
 			testButton.scrollFactor.set();
 			switch(i) {
 				case 0:
-					testButton.setPosition(367.35, 389.9);
+					testButton.setPosition(357.5, 379.9);
 				case 1:
-					testButton.setPosition(665.5, 389.9);
+					testButton.setPosition(655.5, 379.9);
 				case 2:
-					testButton.setPosition(367.35, 523.3);
+					testButton.setPosition(357.5, 513.3);
 				case 3:
-					testButton.setPosition(665.5, 523.3);
+					testButton.setPosition(551.5, 513.3);
+				case 4:
+					testButton.setPosition(745.5, 513.3);
 			}
 			menuItems.add(testButton);
 		}		
@@ -160,22 +164,27 @@ class MainMenuState extends MusicBeatState
 		logo.y -= 160;
 		add(logo);
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 65, 900, "Psych Engine 0.5.2 - V.S. Impostor by Team Funktastic");
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 80, 900, "Psych Engine 0.5.2 - V.S. Impostor by Team Funktastic");
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.screenCenter(X);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 50, 900, "If you wan't use my fanmade for your mod, just add my nickname in credits.");
+		
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 65, 900, "If you wan't use my fanmade for your mod, just add my nickname in credits.");
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.screenCenter(X);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 35, 900, "Big thanks to Betrayal developers, Hershey, Uhard, HopKa, Lenya The Cat, Sirox, LEOAQUIBOT, murkedGuyyr, Sotopia, VanDaniel, Flopster, Nes, FNF fan, Fran, GrishaAsd, Bravu and AlexZockt.");
+		
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 50, 1300, "Big thanks to Betrayal developers, Hershey, Uhard, HopKa, Lenya The Cat, Sirox,
+		LEOAQUIBOT, murkedGuyyr, Sotopia, VanDaniel, Flopster, Nes, FNF Fan, Fran, GrishaAsd, 
+		Bravu, AlexZockt, Jigsaw, Agente TV, Adam_02M5, ConcreteDayShow, Arievix, DeepFriedBolonese and TerraRune.");
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.screenCenter(X);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 80, 900, "V.S. Impostor v4 - Fanmade by: Merphi");
+		
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 95, 900, "V.S. Impostor v4 - Fanmade (1.2) by: Merphi");
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.screenCenter(X);
@@ -205,28 +214,104 @@ class MainMenuState extends MusicBeatState
 		});
 		if (!selectedSomethin)
 		{
-			if (controls.UI_LEFT_P)
-			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(-1);
+			if (curSelected == 0) {
+				if (controls.UI_RIGHT_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(1);
+					});
+				}
+
+				if (controls.UI_DOWN_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(2);
+					});
+				}
 			}
 
-			if (controls.UI_RIGHT_P)
-			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(1);
+			if (curSelected == 1) {
+				if (controls.UI_LEFT_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(-1);
+					});
+				}
+
+				if (controls.UI_DOWN_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(3);
+					});
+				}
+			}
+
+			if (curSelected == 2) {
+				if (controls.UI_RIGHT_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(1);
+					});
+				}
+				
+				if (controls.UI_UP_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(-2);
+					});
+				}
 			}
 			
-			if (controls.UI_UP_P)
-			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(-2);
+			if (curSelected == 3) {
+				if (controls.UI_LEFT_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(-1);
+					});
+				}
+
+				if (controls.UI_RIGHT_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(1);
+					});
+				}
 			}
 
-			if (controls.UI_DOWN_P)
-			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(2);
+			if (curSelected == 4) {
+				if (controls.UI_LEFT_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(-1);
+					});
+				}
+
+				if (controls.UI_UP_P)
+				{
+					new FlxTimer().start(0.05, function(tmr:FlxTimer)
+					{
+						FlxG.sound.play(Paths.sound('scrollMenu'));
+						changeItem(-3);
+					});
+				}
 			}
 
 			if (controls.BACK)
@@ -285,6 +370,8 @@ class MainMenuState extends MusicBeatState
 									MusicBeatState.switchState(new FreeplayState());
 								case 'options':
 									LoadingState.loadAndSwitchState(new options.OptionsState());
+								case 'awards':
+									LoadingState.loadAndSwitchState(new AchievementsMenuState());
 							}
 						}
 					});
@@ -305,11 +392,6 @@ class MainMenuState extends MusicBeatState
 	function changeItem(huh:Int = 0)
 	{
 		curSelected += huh;
-
-		if (curSelected >= menuItems.length)
-			curSelected = 0;
-		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{

@@ -3,45 +3,56 @@
 		{
 			"loop": false,
 			"offsets": [
-				46,
-				104
+				33,
+				149
 			],
 			"anim": "singUP",
 			"fps": 24,
-			"name": "BLACK UP",
+			"name": "Up",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-214,
+				-337,
 				-10
 			],
 			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "BLACK RIGHT",
+			"name": "Right",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				-18,
-				-20
+				150,
+				240
+			],
+			"anim": "death",
+			"fps": 24,
+			"name": "Die",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-87,
+				-28
 			],
 			"anim": "singDOWN",
 			"fps": 24,
-			"name": "BLACK DOWN",
+			"name": "Down",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				116,
-				12
+				102,
+				-1
 			],
 			"anim": "singLEFT",
 			"fps": 24,
-			"name": "BLACK LEFT",
+			"name": "Left",
 			"indices": []
 		},
 		{
@@ -52,18 +63,7 @@
 			],
 			"anim": "idle",
 			"fps": 24,
-			"name": "BLACK IDLE",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				255,
-				238
-			],
-			"anim": "death",
-			"fps": 24,
-			"name": "BLACK DEATH",
+			"name": "Idle",
 			"indices": []
 		}
 	],

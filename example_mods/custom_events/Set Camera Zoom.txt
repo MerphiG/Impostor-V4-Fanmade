@@ -1,0 +1,5 @@
+Sets Camera Zoom, poggers
+
+Value 1: How much it needs to be zoomed
+in/out (Default is 1/the "defaultZoom" line
+in you stage's .json file)

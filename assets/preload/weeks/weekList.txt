@@ -4,7 +4,9 @@ skeld
 defeat
 halloween
 airship
-triple-trouble
+tt-gray
+tt-maroon
+tt-pink
 
 
 sussus-moogus
@@ -28,15 +30,22 @@ spookpostor
 mando
 d'low
 oversight
+influence
 danger
 double-kill
-titular
-mission
+death-blow
 
-boiling-point
 insane
 blackout
+nyctophobia
+massacre
 
+boiling-point
+
+heartbroken 
+
+titular
+mission
 double-trouble
 double-ejection
 drip
@@ -47,3 +56,7 @@ boing!
 triplet
 monosus
 infi
+cleaning
+devil's-gambit
+bad-time
+despair

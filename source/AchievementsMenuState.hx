@@ -14,6 +14,7 @@ import flixel.util.FlxColor;
 import lime.utils.Assets;
 import flixel.FlxSubState;
 import Achievements;
+import flixel.addons.display.FlxBackdrop;
 
 using StringTools;
 
@@ -21,25 +22,32 @@ class AchievementsMenuState extends MusicBeatState
 {
 	#if ACHIEVEMENTS_ALLOWED
 	var options:Array<String> = [];
-	private var grpOptions:FlxTypedGroup<Alphabet>;
+	private var grpOptions:FlxTypedGroup<AlphabetW>;
 	private static var curSelected:Int = 0;
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
-
+	var starFG:FlxBackdrop;
+	var starBG:FlxBackdrop;
+	
 	override function create() {
 		#if desktop
 		DiscordClient.changePresence("Achievements Menu", null);
 		#end
 
-		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
-		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
-		menuBG.updateHitbox();
-		menuBG.screenCenter();
-		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
-		add(menuBG);
+		starFG = new FlxBackdrop(Paths.image('menu/starFG'), 1, 1, true, true);
+		starFG.updateHitbox();
+		starFG.antialiasing = true;
+		starFG.scrollFactor.set();
+		add(starFG);
 
-		grpOptions = new FlxTypedGroup<Alphabet>();
+		starBG = new FlxBackdrop(Paths.image('menu/starBG'), 1, 1, true, true);
+		starBG.updateHitbox();
+		starBG.antialiasing = true;
+		starBG.scrollFactor.set();
+		add(starBG);
+
+		grpOptions = new FlxTypedGroup<AlphabetW>();
 		add(grpOptions);
 
 		Achievements.loadAchievements();
@@ -52,7 +60,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		for (i in 0...options.length) {
 			var achieveName:String = Achievements.achievementsStuff[achievementIndex[i]][2];
-			var optionText:Alphabet = new Alphabet(0, (100 * i) + 210, Achievements.isAchievementUnlocked(achieveName) ? Achievements.achievementsStuff[achievementIndex[i]][0] : '?', false, false);
+			var optionText:AlphabetW = new AlphabetW(0, (100 * i) + 210, Achievements.isAchievementUnlocked(achieveName) ? Achievements.achievementsStuff[achievementIndex[i]][0] : '?', false, false);
 			optionText.isMenuItem = true;
 			optionText.x += 280;
 			optionText.xAdd = 200;
@@ -76,6 +84,11 @@ class AchievementsMenuState extends MusicBeatState
 	}
 
 	override function update(elapsed:Float) {
+		grpOptions.forEach(function(spr:FlxSprite)
+		{
+			starFG.x -= 0.003;
+			starBG.x -= 0.001;
+		});
 		super.update(elapsed);
 
 		if (controls.UI_UP_P) {

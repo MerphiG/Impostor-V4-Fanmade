@@ -108,7 +108,7 @@ function onUpdate()
 	end
 	if dadName == 'gray-tt' then
 		xx = 450
-		yy = 500
+		yy = 620
 	end
 	if dadName == 'maroon-tt' then
 		xx = 1350

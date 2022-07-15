@@ -34,6 +34,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
 
+		var option:Option = new Option('Show Screen',
+			"If checked, on game launch you can see Changelog and something else.",
+			'ShowScreenAfterTitleState',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Note Splashes',
 			"If unchecked, hitting \"Sick!\" notes won't show particles.",
 			'noteSplashes',

@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="FNF: VS Impostor v4 - Fanmade" file="VS Impostor V4" packageName="com.vsimpostorv4.fanmade" package="com.vsimpostorv4.fanmade" main="Main" version="4.1" company="Merphi" />
+	<app title="FNF: VS Impostor v4 - Fanmade" file="VS Impostor V4" packageName="com.vsimpostorv4.fanmade" package="com.vsimpostorv4.fanmade" main="Main" version="1.2" company="Merphi" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
@@ -46,6 +46,7 @@
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" if="desktop" />
 	<define name="LUA_ALLOWED" if="desktop" />
+	<define name="ACHIEVEMENTS_ALLOWED" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>

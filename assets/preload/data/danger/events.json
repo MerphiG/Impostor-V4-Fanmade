@@ -1,10 +1,10 @@
 {
 	"song": {
 		"speed": 2.8,
-		"stage": "defeat",
+		"stage": "airship-dk",
 		"player1": "bf",
-		"player2": "black",
-		"player3": "nothing",
+		"player2": "black_danger",
+		"player3": "white_danger",
 		"notes": [
 			{
 				"lengthInSteps": 16,

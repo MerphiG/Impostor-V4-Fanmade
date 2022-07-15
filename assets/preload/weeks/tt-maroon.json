@@ -1,0 +1,30 @@
+{
+	"songs": [
+		[
+			"Boiling Point",
+			"maroon",
+			[
+				255,
+				255,
+				255
+			]
+		]
+	],
+	"hideFreeplay": true,
+	"weekBackground": "stage",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "Maroon",
+	"weekName": "tt-maroon",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

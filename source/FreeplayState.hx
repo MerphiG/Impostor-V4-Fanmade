@@ -22,6 +22,7 @@ import WeekData;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
+import flixel.addons.display.FlxBackdrop;
 
 using StringTools;
 
@@ -34,8 +35,8 @@ class FreeplayState extends MusicBeatState
 	var curDifficulty:Int = -1;
 	private static var lastDifficultyName:String = '';
 
-	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
+	var scoreText1:FlxText;
 	var diffText:FlxText;
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
@@ -45,23 +46,20 @@ class FreeplayState extends MusicBeatState
 	private var grpSongs:FlxTypedGroup<SusFont>;
 	private var curPlaying:Bool = false;
 
-	private var iconArray:Array<HealthIcon> = [];
+	private var iconArray:Array<FpIcon> = [];
+	private var FpBoxArray:Array<FpBox> = [];
 
 	var bg:FlxSprite;
+	var starFG:FlxBackdrop;
+	var starBG:FlxBackdrop;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
 	var red1:FlxSprite;
-	var red2:FlxSprite;
 	var green1:FlxSprite;
-	var green2:FlxSprite;
-	var green3:FlxSprite;
-	var green4:FlxSprite;
 	var sus1:FlxSprite;
-	var sus2:FlxSprite;
 	var black:FlxSprite;
 	var fella1:FlxSprite;
-	var fella2:FlxSprite;
 	var yellow:FlxSprite;
 	var white:FlxSprite;
 	var wb:FlxSprite;
@@ -69,13 +67,13 @@ class FreeplayState extends MusicBeatState
 	var maroon:FlxSprite;
 	var gray:FlxSprite;
 	var double1:FlxSprite;
-	var double2:FlxSprite;
 	var cz:FlxSprite;
 	var jorsawsee:FlxSprite;
 	var bfi:FlxSprite;
 	var tt:FlxSprite;
 	var sus:FlxSprite;
 	var infi:FlxSprite;
+	var pink:FlxSprite;
 
 	override function create()
 	{
@@ -132,133 +130,132 @@ class FreeplayState extends MusicBeatState
 		bg.setGraphicSize(Std.int(bg.width * 1.1));
 		bg.updateHitbox();
 		bg.screenCenter();
-		add(bg);
+		
+		starFG = new FlxBackdrop(Paths.image('menu/starFG'), 1, 1, true, true);
+		starFG.updateHitbox();
+		starFG.antialiasing = true;
+		starFG.scrollFactor.set();
+		add(starFG);
 
+		starBG = new FlxBackdrop(Paths.image('menu/starBG'), 1, 1, true, true);
+		starBG.updateHitbox();
+		starBG.antialiasing = true;
+		starBG.scrollFactor.set();
+		add(starBG);
 
-		red1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/red-1'));
-		red1.setGraphicSize(Std.int(red1.width * 1.1));
+		red1 = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/red-1'));
+		red1.setGraphicSize(Std.int(red1.width * 1.05));
 		red1.antialiasing = ClientPrefs.globalAntialiasing;
 		add(red1);
+		red1.alpha = 0.0;
 		
-		red2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/red-2'));
-		red2.setGraphicSize(Std.int(red2.width * 1.1));
-		red2.antialiasing = ClientPrefs.globalAntialiasing;
-		add(red2);
-		
-		green1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/green-1'));
-		green1.setGraphicSize(Std.int(green1.width * 1.1));
+		green1 = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/green-1'));
+		green1.setGraphicSize(Std.int(green1.width * 1.05));
 		green1.antialiasing = ClientPrefs.globalAntialiasing;
 		add(green1);
-
-		green2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/green-2'));
-		green2.setGraphicSize(Std.int(green2.width * 1.1));
-		green2.antialiasing = ClientPrefs.globalAntialiasing;
-		add(green2);
+		green1.alpha = 0.0;
 		
-		green3 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/green-3'));
-		green3.setGraphicSize(Std.int(green3.width * 1.1));
-		green3.antialiasing = ClientPrefs.globalAntialiasing;
-		add(green3);
-		
-		green4 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/green-4'));
-		green4.setGraphicSize(Std.int(green4.width * 1.1));
-		green4.antialiasing = ClientPrefs.globalAntialiasing;
-		add(green4);
-		
-		sus1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/sus-1'));
-		sus1.setGraphicSize(Std.int(sus1.width * 1.1));
-		sus1.antialiasing = false;
+		sus1 = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/sus-1'));
+		sus1.setGraphicSize(Std.int(sus1.width * 1.05));
+		sus1.antialiasing = ClientPrefs.globalAntialiasing;
 		add(sus1);
+		sus1.alpha = 0.0;
 		
-		sus2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/sus-2'));
-		sus2.setGraphicSize(Std.int(sus2.width * 1.1));
-		sus2.antialiasing = false;
-		add(sus2);
-		
-		black = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/black'));
-		black.setGraphicSize(Std.int(black.width * 1.1));
+		black = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/black'));
+		black.setGraphicSize(Std.int(black.width * 1.05));
 		black.antialiasing = ClientPrefs.globalAntialiasing;
 		add(black);
+		black.alpha = 0.0;
 		
-		fella1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/fella-1'));
-		fella1.setGraphicSize(Std.int(fella1.width * 1.1));
-		fella1.antialiasing = false;
+		fella1 = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/fella-1'));
+		fella1.setGraphicSize(Std.int(fella1.width * 1.05));
+		fella1.antialiasing = ClientPrefs.globalAntialiasing;
 		add(fella1);
+		fella1.alpha = 0.0;
 		
-		fella2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/fella-2'));
-		fella2.setGraphicSize(Std.int(fella2.width * 1.1));
-		fella2.antialiasing = false;
-		add(fella2);
-		
-		yellow = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/yellow'));
-		yellow.setGraphicSize(Std.int(yellow.width * 1.1));
+		yellow = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/yellow'));
+		yellow.setGraphicSize(Std.int(yellow.width * 1.05));
 		yellow.antialiasing = ClientPrefs.globalAntialiasing;
 		add(yellow);
+		yellow.alpha = 0.0;
 		
-		white = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/white'));
-		white.setGraphicSize(Std.int(white.width * 1.1));
+		white = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/white'));
+		white.setGraphicSize(Std.int(white.width * 1.05));
 		white.antialiasing = ClientPrefs.globalAntialiasing;
 		add(white);
+		white.alpha = 0.0;
 		
-		wb = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/white-black'));
-		wb.setGraphicSize(Std.int(wb.width * 1.1));
+		wb = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/white-black'));
+		wb.setGraphicSize(Std.int(wb.width * 1.05));
 		wb.antialiasing = ClientPrefs.globalAntialiasing;
 		add(wb);
+		wb.alpha = 0.0;
 		
-		henry = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/henry'));
-		henry.setGraphicSize(Std.int(henry.width * 1.1));
+		henry = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/henry'));
+		henry.setGraphicSize(Std.int(henry.width * 1.05));
 		henry.antialiasing = ClientPrefs.globalAntialiasing;
 		add(henry);
+		henry.alpha = 0.0;
 		
-		maroon = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/maroon'));
-		maroon.setGraphicSize(Std.int(maroon.width * 1.1));
+		maroon = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/maroon'));
+		maroon.setGraphicSize(Std.int(maroon.width * 1.05));
 		maroon.antialiasing = ClientPrefs.globalAntialiasing;
 		add(maroon);
+		maroon.alpha = 0.0;
 		
-		gray = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/gray'));
-		gray.setGraphicSize(Std.int(gray.width * 1.1));
+		gray = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/gray'));
+		gray.setGraphicSize(Std.int(gray.width * 1.05));
 		gray.antialiasing = ClientPrefs.globalAntialiasing;
 		add(gray);
+		maroon.alpha = 0.0;
 		
-		double1 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/double-1'));
-		double1.setGraphicSize(Std.int(double1.width * 1.1));
+		double1 = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/double-1'));
+		double1.setGraphicSize(Std.int(double1.width * 1.05));
 		double1.antialiasing = ClientPrefs.globalAntialiasing;
 		add(double1);
+		maroon.alpha = 0.0;
 		
-		double2 = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/double-2'));
-		double2.setGraphicSize(Std.int(double2.width * 1.1));
-		double2.antialiasing = ClientPrefs.globalAntialiasing;
-		add(double2);
-		
-		cz = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/clowfoe-ziffy'));
-		cz.setGraphicSize(Std.int(cz.width * 1.1));
+		cz = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/clowfoe-ziffy'));
+		cz.setGraphicSize(Std.int(cz.width * 1.05));
 		cz.antialiasing = ClientPrefs.globalAntialiasing;
 		add(cz);
+		cz.alpha = 0.0;
 
-		jorsawsee = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/jorsawsee'));
-		jorsawsee.setGraphicSize(Std.int(jorsawsee.width * 1.1));
+		jorsawsee = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/jorsawsee'));
+		jorsawsee.setGraphicSize(Std.int(jorsawsee.width * 1.05));
 		jorsawsee.antialiasing = ClientPrefs.globalAntialiasing;
 		add(jorsawsee);
+		jorsawsee.alpha = 0.0;
 		
-		bfi = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/bf-impostor'));
-		bfi.setGraphicSize(Std.int(bfi.width * 1.1));
+		bfi = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/bf-impostor'));
+		bfi.setGraphicSize(Std.int(bfi.width * 1.05));
 		bfi.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bfi);
+		bfi.alpha = 0.0;
 
-		tt = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/tt'));
-		tt.setGraphicSize(Std.int(tt.width * 1.1));
+		tt = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/tt'));
+		tt.setGraphicSize(Std.int(tt.width * 1.05));
 		tt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(tt);
+		tt.alpha = 0.0;
 		
-		sus = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/sus'));
-		sus.setGraphicSize(Std.int(sus.width * 1.1));
+		sus = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/sus'));
+		sus.setGraphicSize(Std.int(sus.width * 1.05));
 		sus.antialiasing = ClientPrefs.globalAntialiasing;
 		add(sus);
+		sus.alpha = 0.0;
 		
-		infi = new FlxSprite(-100, 1000).loadGraphic(Paths.image('freeplay/infi'));
-		infi.setGraphicSize(Std.int(infi.width * 1.1));
+		infi = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/infi'));
+		infi.setGraphicSize(Std.int(infi.width * 1.05));
 		infi.antialiasing = ClientPrefs.globalAntialiasing;
 		add(infi);
+		infi.alpha = 0.0;
+		
+		pink = new FlxSprite(-10, -10).loadGraphic(Paths.image('freeplay/pink'));
+		pink.setGraphicSize(Std.int(pink.width * 1.05));
+		pink.antialiasing = ClientPrefs.globalAntialiasing;
+		add(pink);
+		pink.alpha = 0.0;
 
 		var gradient:FlxSprite = new FlxSprite(0, 100).loadGraphic(Paths.image('menuGr'));
 		gradient.scrollFactor.x = 0;
@@ -266,53 +263,715 @@ class FreeplayState extends MusicBeatState
 		gradient.setGraphicSize(Std.int(gradient.width * 1.1));
 		gradient.updateHitbox();
 		gradient.screenCenter(X);
-		add(gradient);
-
-		var freeplaybox:FlxSprite = new FlxSprite(20,5).loadGraphic(Paths.image('freeplay/freeplaybox'));
-		freeplaybox.antialiasing = true;
-		freeplaybox.setGraphicSize(Std.int(freeplaybox.width * 1.1));
-		freeplaybox.updateHitbox();
-		freeplaybox.scrollFactor.set();
-		add(freeplaybox);
 
 		grpSongs = new FlxTypedGroup<SusFont>();
 
 		for (i in 0...songs.length)
 		{
-			var songText:SusFont = new SusFont(0, (70 * i) + 200, songs[i].songName, true);
-			songText.setFormat(Paths.font("amogus.ttf"), 90, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			songText.scale.set(0.7, 0.7);
-			songText.borderSize = 2.0;
-			songText.antialiasing = true;
+			var songText:SusFont = new SusFont(0, (70 * i) + 30, songs[i].songName, true, false);
 			songText.isMenuItem = true;
+			songText.antialiasing = ClientPrefs.globalAntialiasing;
 			songText.targetY = i;
+			
+			switch(songs[i].week)
+			{
+				case 0: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(0);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 1: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(1);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 2: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(2);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 3: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(3);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 4: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(4);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 5: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(5);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 6: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(6);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 7: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(7);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 8: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(8);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 9: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(9);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 10: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(10);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 11: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(11);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 12: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(12);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 13: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(13);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 14: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(14);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 15: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(15);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 16: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(16);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 17: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(17);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 18: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(18);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 19: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(19);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 20: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(20);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 21: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(21);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 22: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(22);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 23: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(23);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 24: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(24);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 25: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(25);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 26: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(26);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 27: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(27);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 28: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(28);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 29: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(29);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 30: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(30);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 31: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(31);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 32: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(32);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 33: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(33);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 34: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(34);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 35: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(35);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 36: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(36);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 37: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(37);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 38: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(38);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 39: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(39);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 40: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(40);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+				case 41: 
+				{	
+					var FreeplayBox:FpBox = new FpBox(41);
+					FreeplayBox.setGraphicSize(Std.int(FreeplayBox.width * 1.1));
+					FreeplayBox.sprTracker = songText;
+					FpBoxArray.push(FreeplayBox);
+					add(FreeplayBox);
+				}
+			}
+			
 			grpSongs.add(songText);
 
 			Paths.currentModDirectory = songs[i].folder;
 			
-			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
-			icon.scale.set(0.7, 0.7);
-			icon.sprTracker = songText;
-
-			iconArray.push(icon);
-			add(icon);
+			switch(songs[i].week)
+			{
+				case 0: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 0);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 1: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 1);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 2: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 2);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 3: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 3);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 4: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 4);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 5: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 5);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 6: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 6);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 7: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 7);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 8: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 8);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 9: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 9);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 10: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 10);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 11: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 11);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 12: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 12);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 13: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 13);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 14: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 14);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 15: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 15);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 16: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 16);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 17: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 17);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 18: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 18);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 19: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 19);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 20: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 20);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 21: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 21);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 22: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 22);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 23: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 23);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 24: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 24);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 25: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 25);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 26: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 26);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 27: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 27);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 28: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 28);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 29: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 29);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 30: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 30);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 31: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 31);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 32: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 32);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 33: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 33);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 34: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 34);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 35: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 35);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 36: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 36);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 37: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 37);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 38: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 38);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 39: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 39);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 40: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 40);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+				case 41: 
+				{	
+					var icon:FpIcon = new FpIcon(songs[i].songCharacter, 41);
+					icon.scale.set(0.7, 0.7);
+					icon.sprTracker = songText;
+					iconArray.push(icon);
+					add(icon);
+				}
+			}
 		}
 		add(grpSongs);
 		
 		WeekData.setDirectoryFromWeek();
 
-		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
+		scoreText = new FlxText(FlxG.width * 0.7, 100, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
+		scoreText1 = new FlxText(scoreText.x + 270, scoreText.y + 30, 0, "", 32);
+		scoreText1.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 
-		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
-		scoreBG.alpha = 0.6;
-		add(scoreBG);
-
-		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
+		diffText = new FlxText(scoreText.x + 265, scoreText.y + 60, 0, "", 24);
 		diffText.font = scoreText.font;
 		add(diffText);
 
 		add(scoreText);
+		add(scoreText1);
 
 		if(curSelected >= songs.length) curSelected = 0;
 		bg.color = songs[curSelected].color;
@@ -326,22 +985,13 @@ class FreeplayState extends MusicBeatState
 		
 		changeSelection();
 		changeDiff();
-
-		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
-		textBG.alpha = 0.6;
-		add(textBG);
-
-		#if PRELOAD_ALL
-		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-		var size:Int = 16;
-		#else
-		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-		var size:Int = 18;
-		#end
-		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
-		text.scrollFactor.set();
-		add(text);
+		
+		var coolthing:FlxSprite = new FlxSprite(-100, -10).loadGraphic(Paths.image('freeplay/FreeplayThing'));
+		coolthing.scrollFactor.set();
+		coolthing.setGraphicSize(Std.int(coolthing.width * 1.1));
+		coolthing.updateHitbox();
+		add(coolthing);
+		
 		super.create();
 	}
 
@@ -382,6 +1032,11 @@ class FreeplayState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
+		grpSongs.forEach(function(spr:FlxSprite)
+		{
+			starFG.x -= 0.003;
+			starBG.x -= 0.001;
+		});
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -404,7 +1059,9 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
+		scoreText.text = '' + lerpScore;
+		scoreText1.text = '' + ratingSplit;
+		
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
@@ -564,16 +1221,10 @@ class FreeplayState extends MusicBeatState
 	}
 
 	var red1Tween:FlxTween;
-	var red2Tween:FlxTween;
 	var green1Tween:FlxTween;
-	var green2Tween:FlxTween;
-	var green3Tween:FlxTween;
-	var green4Tween:FlxTween;
 	var sus1Tween:FlxTween;
-	var sus2Tween:FlxTween;
 	var blackTween:FlxTween;
 	var fella1Tween:FlxTween;
-	var fella2Tween:FlxTween;
 	var yellowTween:FlxTween;
 	var whiteTween:FlxTween;
 	var wbTween:FlxTween;
@@ -581,27 +1232,21 @@ class FreeplayState extends MusicBeatState
 	var maroonTween:FlxTween;
 	var grayTween:FlxTween;
 	var double1Tween:FlxTween;
-	var double2Tween:FlxTween;
 	var czTween:FlxTween;
 	var jorsawseeTween:FlxTween;
 	var bfiTween:FlxTween;
 	var ttTween:FlxTween;
 	var susTween:FlxTween;
 	var infiTween:FlxTween;
+	var pinkTween:FlxTween;
 
 	function cancelTweens()
 	{
 		red1Tween.cancel();
-		red2Tween.cancel();
 		green1Tween.cancel();
-		green2Tween.cancel();
-		green3Tween.cancel();
-		green4Tween.cancel();
 		sus1Tween.cancel();
-		sus2Tween.cancel();
 		blackTween.cancel();
 		fella1Tween.cancel();
-		fella2Tween.cancel();
 		yellowTween.cancel();
 		whiteTween.cancel();
 		wbTween.cancel();
@@ -609,13 +1254,13 @@ class FreeplayState extends MusicBeatState
 		maroonTween.cancel();
 		grayTween.cancel();
 		double1Tween.cancel();
-		double2Tween.cancel();
 		czTween.cancel();
 		jorsawseeTween.cancel();
 		bfiTween.cancel();
 		ttTween.cancel();
 		susTween.cancel();
 		infiTween.cancel();
+		pinkTween.cancel();
 	}	
 
 	function changeSelection(change:Int = 0, playSound:Bool = true)
@@ -653,17 +1298,24 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...iconArray.length)
 		{
-			iconArray[i].alpha = 0;
+			iconArray[i].alpha = 0.6;
 		}
 
 		iconArray[curSelected].alpha = 1;
+
+		for (i in 0...FpBoxArray.length)
+		{
+			FpBoxArray[i].alpha = 0.6;
+		}
+
+		FpBoxArray[curSelected].alpha = 1;
 
 		for (item in grpSongs.members)
 		{
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			item.alpha = 0;
+			item.alpha = 0.6;
 
 			if (item.targetY == 0)
 			{
@@ -715,1074 +1367,908 @@ class FreeplayState extends MusicBeatState
 			curDifficulty = newPos;
 		}
 		
-		switch(songs[curSelected].week)
+		switch(songs[curSelected].week) 
 		{
-			case 0: 
+			case 0 | 1 | 2 | 38:  //sussus-moogus, sabotage, meltdown, cleaning
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+
+				red1Tween = FlxTween.tween(red1,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 1.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 1: 
+			case 3 | 4 | 5 | 6:  //sussus-toogus, lights-down, reactor, ejected
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 1.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 2: 
+			case 7 | 8 | 9: //sussy-bussy, rivals, chewmate
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 1.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 3: 
+			case 10 | 17 | 19: //defeat, danger, death-blow
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 1.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 4: 
+			case 11 | 12: //christmas, spookpostor
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 1.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 5: 
+			case 13 | 14: //mando, d'low
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 1.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 6: 
+			case 15 | 16: //oversight, influence
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 1.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 7: 
+			case 18 | 30: //double-kill, drip
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 1.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 8: 
+			case 26 | 27: //titular, mission
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 1.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 9: 
+			case 24 | 40: //boiling-point, bad-time
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 1.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 10: 
+			case 20 | 21 | 22 | 23 | 41: //insane, blackout, nyctophobia, massacre, despair
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 1.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 11: 
+			case 28 | 29 | 34: //double-trouble, double-ejection, boing!
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 1.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 12: 
+			case 31: //skinny-nuts
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 1.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 13: 
+			case 32: //jorsawsee
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 1.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 14: 
+			case 33: //bf-defeat
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 1.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 15: 
+			case 35: //triple-trouble
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 1.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 16: 
+			case 36: //monosus
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 1.0;
+				infi.alpha = 0.0;
+				pink.alpha = 0.0;
 			}
-			case 17: 
+			case 37: //infi
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 1.0;
+				pink.alpha = 0.0;
 			}
-			case 18: 
+			case 25 | 39: //heartbroken, devil's-gambit
 			{
 				if(red1Tween != null)
 				{
 					cancelTweens();
 				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 19: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 20: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 21: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 22: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 23: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 24: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 25: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 26: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 27: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 28: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 29: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 30: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 31: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
-				infiTween = FlxTween.tween(infi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-			}
-			case 32: 
-			{
-				if(red1Tween != null)
-				{
-					cancelTweens();
-				}
-				red1Tween = FlxTween.tween(red1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				red2Tween = FlxTween.tween(red2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green1Tween = FlxTween.tween(green1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green2Tween = FlxTween.tween(green2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green3Tween = FlxTween.tween(green3,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				green4Tween = FlxTween.tween(green4,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus1Tween = FlxTween.tween(sus1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				sus2Tween = FlxTween.tween(sus2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				blackTween = FlxTween.tween(black,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella1Tween = FlxTween.tween(fella1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				fella2Tween = FlxTween.tween(fella2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				yellowTween = FlxTween.tween(yellow,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				whiteTween = FlxTween.tween(white,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				wbTween = FlxTween.tween(wb,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				henryTween = FlxTween.tween(henry,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				maroonTween = FlxTween.tween(maroon,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				grayTween = FlxTween.tween(gray,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double1Tween = FlxTween.tween(double1,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				double2Tween = FlxTween.tween(double2,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				czTween = FlxTween.tween(cz,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				jorsawseeTween = FlxTween.tween(jorsawsee,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				bfiTween = FlxTween.tween(bfi,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				ttTween = FlxTween.tween(tt,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				susTween = FlxTween.tween(sus,{y: 1000}, 0.5 ,{ease: FlxEase.expoIn});
-				infiTween = FlxTween.tween(infi,{y: 0}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1Tween = FlxTween.tween(red1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				green1Tween = FlxTween.tween(green1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				sus1Tween = FlxTween.tween(sus1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				blackTween = FlxTween.tween(black,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				fella1Tween = FlxTween.tween(fella1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				yellowTween = FlxTween.tween(yellow,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				whiteTween = FlxTween.tween(white,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				wbTween = FlxTween.tween(wb,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				henryTween = FlxTween.tween(henry,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				maroonTween = FlxTween.tween(maroon,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				grayTween = FlxTween.tween(gray,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				double1Tween = FlxTween.tween(double1,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				czTween = FlxTween.tween(cz,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				jorsawseeTween = FlxTween.tween(jorsawsee,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				bfiTween = FlxTween.tween(bfi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				ttTween = FlxTween.tween(tt,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				susTween = FlxTween.tween(sus,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				infiTween = FlxTween.tween(infi,{x: -10}, 0.5 ,{ease: FlxEase.expoOut});
+				pinkTween = FlxTween.tween(pink,{x: -40}, 0.5 ,{ease: FlxEase.expoOut});
+				
+				red1.alpha = 0.0;
+				green1.alpha = 0.0;
+				sus1.alpha = 0.0;
+				black.alpha = 0.0;
+				fella1.alpha = 0.0;
+				yellow.alpha = 0.0;
+				white.alpha = 0.0;
+				wb.alpha = 0.0;
+				henry.alpha = 0.0;
+				maroon.alpha = 0.0;
+				gray.alpha = 0.0;
+				double1.alpha = 0.0;
+				cz.alpha = 0.0;
+				jorsawsee.alpha = 0.0;
+				bfi.alpha = 0.0;
+				tt.alpha = 0.0;
+				sus.alpha = 0.0;
+				infi.alpha = 0.0;
+				pink.alpha = 1.0;
 			}
 		}
 	}
 
 	private function positionHighscore() {
 		scoreText.x = FlxG.width - scoreText.width - 6;
-
-		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
-		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
-		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
-		diffText.x -= diffText.width / 2;
+		scoreText1.x = FlxG.width - scoreText1.width - 6;
+		diffText.x = FlxG.width - diffText.width - 6;
 	}
 }
 

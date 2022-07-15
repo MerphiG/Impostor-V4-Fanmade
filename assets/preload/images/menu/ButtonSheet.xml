@@ -2,12 +2,14 @@
 <TextureAtlas imagePath="ButtonSheet.png">
 	<!-- Created with Adobe Animate version 21.0.7.42652 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="discordHover0000" x="0" y="0" width="260" height="111"/>
-	<SubTexture name="discordIdle0000" x="275" y="0" width="260" height="111"/>
-	<SubTexture name="freeplayHover0000" x="550" y="0" width="260" height="111"/>
-	<SubTexture name="freeplayIdle0000" x="0" y="126" width="260" height="111"/>
-	<SubTexture name="optionsHover0000" x="275" y="126" width="260" height="111"/>
-	<SubTexture name="optionsIdle0000" x="550" y="126" width="260" height="111"/>
-	<SubTexture name="storyHover0000" x="0" y="252" width="260" height="111"/>
-	<SubTexture name="storyIdle0000" x="275" y="252" width="260" height="111"/>
+	<SubTexture name="awardsHover0000" x="4" y="4" width="172" height="111"/>
+	<SubTexture name="awardsIdle0000" x="180" y="4" width="172" height="111"/>
+	<SubTexture name="discordHover0000" x="356" y="4" width="172" height="111"/>
+	<SubTexture name="discordIdle0000" x="532" y="4" width="172" height="111"/>
+	<SubTexture name="freeplayHover0000" x="4" y="119" width="260" height="111"/>
+	<SubTexture name="freeplayIdle0000" x="268" y="119" width="260" height="111"/>
+	<SubTexture name="optionsHover0000" x="532" y="119" width="172" height="111"/>
+	<SubTexture name="optionsIdle0000" x="4" y="234" width="172" height="111"/>
+	<SubTexture name="storyHover0000" x="180" y="234" width="260" height="111"/>
+	<SubTexture name="storyIdle0000" x="444" y="234" width="260" height="111"/>
 </TextureAtlas>
